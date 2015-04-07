@@ -47,6 +47,9 @@ Route::get('egresado', array('before' => 'auth', function()
 
 Route::controller('administrador','AdministradorController'); //Admin
 
+// Toño
+Route::get('/wall', 'WelcomeController@wall');
+
 
 
 
