@@ -1,0 +1,76 @@
+body {
+    background: #fff;
+    font-size: 12px;
+    margin:0;
+} 
+
+header{
+    background: white;
+}
+
+    header #logo_sep{
+        margin: 1em;
+        text-align: left;
+        padding: 1em;
+        width: 20%;
+        display:  inline-block;
+    }
+
+    header #logo_ipn{
+        float :right;
+        height: 30%;
+        margin: 1em;        
+        padding: 1em;
+        text-align: right;
+        width: 40%;
+
+    }
+
+nav .breadcrumb{
+    background: #CCC;
+    text-align: right;
+ }
+
+section{
+
+}
+
+    section .container{
+        width: 93%;
+    }
+
+
+    #texto-titulo{
+    display: inline-block;
+    float: right;
+    font-size: 42px;
+    font-family: 'Fjalla One', sans-serif;
+    font-weight: normal;
+    line-height: 70px;
+    margin:5px;
+    text-align: right;
+    }
+
+ 
+
+
+.container-fluid {
+    margin: 40px auto 10px;
+    padding: 20px 0px;
+    max-width: 960px;
+
+}
+
+article{
+    font-family: 'Fjalla One', sans-serif;
+    text-align: center;
+    margin: 2em;
+}
+
+
+
+
+#footer{background:#CCC/*333*/;padding-top:15px;padding-bottom:15px;color:#666}
+#footer a{color:#666}#footer a:hover{color:#F60}#footer #gototop{height:40px;line-height:40px;width:40px;text-align:center;display:inline-block;background:#1d1d1d;font-size:24px;color:#fff}#footer #gototop:hover{background:#2b2b2b;text-decoration:none}
+#footer .cp{margin-top:11px;}ul.social{list-style:none;margin:10px 0 0;padding:0;display:inline-block}ul.social>li{display:inline-block;margin:0 5px}ul.social>li>a{font-size:24px;color:#666}ul.social>li>a:hover{color:#999}.box-border{padding:15px}.accordion-group{background-color:#fff;border-top:1px solid #f0f0f0}.accordion-heading .accordion-toggle{color:#666;font-weight:700}.accordion-inner{border-top:0}.blog .blog-item h2{margin-top:0}.blog .blog-item .date span{display:block;text-align:center}.blog .blog-item .date span.day{font-size:50px;line-height:50px;padding-top:10px;font-family:"Fjalla One",sans-serif}.blog .blog-item .date span.month{font-size:18px}.blog .blog-item .tag{margin-top:5px}.blog .blog-item .avatar{margin-top:5px}select,textarea,input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;min-height:40px;padding:0px 50px 0px 10px;border:3px solid #ededed}select:focus,textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type="datetime"]:focus,input[type="datetime-local"]:focus,input[type="date"]:focus,input[type="month"]:focus,input[type="time"]:focus,input[type="week"]:focus,input[type="number"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="color"]:focus,.uneditable-input:focus{border-color:#2dcc70;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.input-block-level{min-height:50px}textarea#message{padding:10px 15px;height:219px}.widget{margin-bottom:30px}.widget>h3{font-size:16px;margin-top:0}.widget h5{margin-top:10px}.widget .date{margin-top:5px;padding:8px 10px;background:#2dcc70}.widget .date>span{display:block;text-align:center;font-family:"Fjalla One";color:#fff}.widget .date>span.month{font-size:14px;line-height:14px;font-weight:700;text-transform:uppercase}.widget .date>span.day{font-size:18px;line-height:18px}#pricing-table{margin-top:20px;margin-bottom:30px}#pricing-table .plan{list-style:none;margin:0;padding:0;color:#fff}#pricing-table .plan.featured{-webkit-transform:scale(1.1);-moz-transform:scale(1.1);-ms-transform:scale(1.1);-o-transform:scale(1.1);transform:scale(1.1)}#pricing-table .plan>li{padding:10px 15px}#pricing-table .plan>li.plan-name{background:rgba(0,0,0,0.1)}#pricing-table .plan>li.plan-name h3{margin:10px 0}#pricing-table .plan>li.plan-action{padding:20px 0}#pricing-table .plan1{background:#1abc9c}#pricing-table .plan2{background:#e74c3c}#pricing-table .plan3{background:#3498db}#pricing-table .plan4{background:#9b59b6}ul.gallery{display:block;margin:-15px}ul.gallery.col-1 li{width:100%}ul.gallery.col-2 li{width:50%}ul.gallery.col-3 li{width:33.3333%}ul.gallery.col-4 li{width:25%}ul.gallery li{display:block;padding:0;margin:0;float:left}ul.gallery li .desc{margin:15px}ul.gallery li .preview{margin:15px;display:block;position:relative}ul.gallery li .preview .overlay{width:100%;height:100%;position:absolute;left:0;top:0;background:rgba(0,0,0,0.6);opacity:0;filter:alpha(opacity=0);-webkit-transition:opacity 300ms;-moz-transition:opacity 300ms;-o-transition:opacity 300ms;transition:opacity 300ms}ul.gallery li .preview .links{width:104px;height:40px;position:absolute;top:50%;left:50%;margin-top:-20px;margin-left:-52px;opacity:0;filter:alpha(opacity=0);-webkit-transform:translate(0,-50px);-moz-transform:translate(0,-50px);-ms-transform:translate(0,-50px);-o-transform:translate(0,-50px);transform:translate(0,-50px);-webkit-transition:300ms;-moz-transition:300ms;-o-transition:300ms;transition:300ms}ul.gallery li .preview .links>a{width:50px;height:40px;line-height:40px;display:inline-block;text-align:center;background:#F60;color:#fff;text-shadow:0 1px rgba(0,0,0,0.3);font-size:18px;margin:0 1px}ul.gallery li .preview:hover .overlay,ul.gallery li .preview:hover .links{opacity:1;filter:alpha(opacity=100)}ul.gallery li .preview:hover .links{-webkit-transform:translate(0,0);-moz-transform:translate(0,0);-ms-transform:translate(0,0);-o-transform:translate(0,0);transform:translate(0,0)}ul.faq{list-style:none;margin:0}ul.faq li{margin-top:30px}ul.faq li:first-child{margin-top:0}ul.faq li span.number{display:block;float:left;width:50px;height:50px;line-height:50px;text-align:center;background:#2dcc70;color:#fff;font-size:24px}ul.faq li>div{margin-left:70px}ul.faq li>div h3{margin-top:0}#error{text-align:center;margin-top:150px;margin-bottom:150px}h5{padding:10px;text-align:justify}/* Ingresado por mi el 08/04/14 para las noticias */.just{text-align:justify;font-size:14px}.negrita{font-weight:bold}.izq{text-align:left; font-size:14px}.chica{font-size:26px}.italica{font-style:italic}#mapaESCOM{width:100%;height:250px}.light{font-weight:normal}@media only screen and (max-width: 750px){#quitarEnTwitter{display:none}}.servicios{font-size:15px}.der{text-align:right}#youmax-tabs{display:none !important;}#youmax-header{display:none !important;}#youmax-video-list-div{background-color:#FFF !important;}#youmax-encloser{border:none 0px #FFF !important;}#youmax{width:100% !important; height:556px !important;}.tabla{font-size:14px; text-align:justify}.clubl{color:#A061A4}.clubm{color:#4B55A1}.cluba{color:#006699}.tamano{font-size:14px}/* Con este estilo logramos que los encabezados queden hasta arriba sin espacios en blanco =191214= cuando se reduce el ancho de la pantalla, queda funcionando correctamente el =120115= */body{padding:0}#miMenu.affix{top: 0;width: 100%;z-index:1000}.blanco{color:#FFFFFF}
+
