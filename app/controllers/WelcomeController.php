@@ -1,6 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-class WelcomeController extends Controller
+class WelcomeController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
@@ -13,28 +13,18 @@ class WelcomeController extends Controller
     |
     */
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
-    /**
-     * Show the application welcome screen to the user.
-     *
-     * @return Response
-     */
+    
     public function index()
     {
-        return view('welcome');
+        return View::make('welcome');
     }
 
     public function wall()
     {
-        return view('admin/wall/wall');
+        $publicaciones = Post::all();
+        // $publicaciones = Post::orderBy('id','asc')->paginate(5);
+        $options = array('' => '', 'edit' => 'Editar', 'delete' => 'Eliminar');
+        return View::make('admin/wall/wall', array('posts' => $publicaciones, 'options' => $options));
+        //return $publicaciones;
     }
 }

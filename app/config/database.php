@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'loginlaravel', // Nombre de la base de datos
+			'database'  => 'facebook', // Nombre de la base de datos
 			'username'  => 'root', // Usuario
 			'password'  => '',     // Contrtaseña
 			'charset'   => 'utf8',

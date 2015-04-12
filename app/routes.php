@@ -11,10 +11,25 @@
 |
 */
 
+
 Route::get('/', function()  // RAIZ
 {
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1'){
+				return Redirect::to('administrador');
+			}
+			elseif (Auth::user()->tipo == '2') {
+				return Redirect::to('encargado');
+			}
+			else{
+				return Redirect::to('egresado');
+			}// El usuario está autenticado
+}
  return View::make('login.index'); 
 });
+
+
 
 
 Route::post('verificarlogin','UserLogin@user'); //Login
@@ -27,32 +42,76 @@ Route::get('logout',function() //Cerrar Sesión
 });
 
 
-Route::get('admin', array('before' => 'auth', function()
+Route::get('administrador', array('before' => 'auth', function()  // Tipo 1
 {
-	return View::make('administrador.index');
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1'){
+				return View::make('administrador.index');
+			}
+			elseif (Auth::user()->tipo == '2') {
+				return Redirect::to('encargado');
+			}
+			else{
+				return Redirect::to('egresado');
+			}// El usuario está autenticado
+}
 }));
 
-Route::get('encargado', array('before' => 'auth', function()
+
+
+Route::get('encargado', array('before' => 'auth', function() // Tipo 2
 {
-	return View::make('encargado.index');
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1'){
+				return Redirect::to('administrador');
+			}
+			elseif (Auth::user()->tipo == '2') {
+				return View::make('encargado.index');
+			}
+			else{
+				return Redirect::to('egresado');
+			}// El usuario está autenticado
+}
+
 }));
 
-Route::get('egresado', array('before' => 'auth', function()
+
+Route::get('egresado', array('before' => 'auth', function() // Tipo 3
 {
-	return View::make('egresado.index');
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1'){
+				return Redirect::to('administrador');
+			}
+			elseif (Auth::user()->tipo == '2') {
+				return Redirect::to('encargado');
+			}
+			else{
+				return View::make('egresado.index');
+			}// El usuario está autenticado
+}
+
 }));
 
 
 
 
-Route::controller('administrador','AdministradorController'); //Admin
+Route::get('agregarUsuario', array('before' => 'auth', function() // Agregar Usuario Administrador
+{
+	return View::make('administrador.agregarUsuario');
+}));
+
 
 // Toño
 Route::get('/wall', 'WelcomeController@wall');
+Route::post('wall', 'PostController@store');
+//Route::post('wall/post', 'PostController@publishOptions');
 
 
-
-
+Route::post('eliminar','PostController@delete'); //Eliminar
+Route::post('actualizar','PostController@update'); //Actualizar
 
 
 Route::get('registrar',function() // Registrar Usuario
@@ -67,6 +126,20 @@ Route::get('registrar',function() // Registrar Usuario
 
 	$user -> save();
 	return "El Usuario Fue agregado Correctamente";
+
+}
+	);
+
+
+
+Route::get('agregarPost',function() // Registrar Post
+{
+	$post = new Post;
+	$post -> mensaje = "Soy Armando, que pedo!";
+
+
+	$post -> save();
+	return "El Post Fue agregado Correctamente";
 
 }
 	);

@@ -24,25 +24,16 @@
               </div>  
        </header>
 	
-		<nav class="navbar navbar-default" role="navigation">
-			 <div class="navbar-header">
-			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			    </button>
-			 </div>
-  			
-  			  <div class="collapse navbar-collapse navbar-ex1-collapse ">
-			    <ul class="nav navbar-nav">
-					<li><a href="http://www.ipn.mx/">Inicio IPN</a></li>
-					<li><a href="http://www.ipn.mx/Paginas/Correo-Electronico.aspx">Correo Electrónico</a></li>
-					<li><a href="http://www.ipn.mx/Paginas/Instalaciones.aspx">Instalaciones</a></li>
-					<li><a href="http://www.ipn.mx/Paginas/Servicios-Medicos.aspx">Servicios Médicos</a></li>
-					<li><a href="http://www.ipn.mx/Paginas/Calendario-Escolar-IPN.aspx" >Calendario</a></li>
-					<li><a href="http://www.ipn.mx/Paginas/Contacto.aspx">Contacto</a></li>
-			    </ul>  
-			  </div>
+		<nav>
+  			<ol class="breadcrumb">
+  				<li><a href="http://www.ipn.mx/">Inicio IPN</a>&nbsp;<span>|</span></li>
+				<li><a href="http://www.ipn.mx/Paginas/Correo-Electronico.aspx">Correo Electrónico</a>&nbsp;<span>|</span></li>
+				<li><a href="http://www.ipn.mx/Paginas/Instalaciones.aspx">Instalaciones</a>&nbsp;<span>|</span></li>
+				<li><a href="http://www.ipn.mx/Paginas/Servicios-Medicos.aspx">Servicios Médicos</a>&nbsp;<span>|</span></li>
+				<li><a href="http://www.ipn.mx/Paginas/Calendario-Escolar-IPN.aspx" >Calendario</a>&nbsp;<span>|</span></li>
+				<li><a href="http://www.ipn.mx/Paginas/Contacto.aspx">Contacto</a>&nbsp;</li>
+		    </div><!-- /.nav-collapse -->
+			</ol>
 		</nav>
 		
 
@@ -55,6 +46,13 @@
 			</div>	
 			
 				<article>
+
+								     <center>
+					 				 <?php if (Session::has('login_errors')) {?>
+					 				 <p style='color:#FB1D1D'> El Usuario y/o Contraseña son incorrectos. </p>
+					 				 <?php }?>
+					 				</center>					
+
 				<button data-toggle="modal" type="button" class="btn btn-primary btn-lg" href="#login" data-target="#login">Iniciar Sesión</button>
 				<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
 					<div class="modal-dialog">
@@ -66,7 +64,7 @@
 							  	<div class="modal-body">
 									<form class="form-horizontal" method="post" action="verificarlogin">
 					 				 <?php if (Session::has('login_errors')) {?>
-					 				 <p style='color:#FB1D1D'> El Usuario y/o Contraseña son incorrectos. </p>
+					 				 <p></p>
 					 				 <?php }else {?>
 					 				 <p> Introduzca Usuario y Contraseña para continuar. </p>
 					 				 <?php } ?>
@@ -83,11 +81,7 @@
 						  				<input type="password" name="password" placeholder="Password">
 										</div>
 					  				</div>
-					  				<div class="control-group">
-									<div class="controls">
-						  				<label class="checkbox"><input type="checkbox"> Recuérdame</label>
-						  			</div>
-									</div>
+					  				<br>
 									<p>¿No recuerdas tu usuario y/o contraseña? <a data-toggle="modal"href="#recuperar">Da clic aquí</a></p>
 									 <div class="modal-footer">
 										<input type="submit" value="Enviar"> 

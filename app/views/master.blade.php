@@ -8,13 +8,16 @@
 
 		<!-- Bootstrap CSS -->
 		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		
+		<!-- jQuery -->
+		<script src="js/jquery-1.11.2.js" type="text/javascript"></script>
 		<!-- Custom CSS --> <!-- CSS Dinámicos -->
 		@yield('css')
 	</head>
 	<body>
 		<!-- Inicio del cuerpo -->
 		<!-- Encabezado / Header -->
-		<h1 class="text-center">Hello World from Master Template</h1>
+		<h2 class="text-center">Muro</h2>
 		<br>
 		<div class="row">
 			<!-- Menú Izquierdo  -->
@@ -38,11 +41,8 @@
             <!-- /.row -->
         </footer>
 
-		<!-- jQuery -->
-		<script src="{{ asset('js/jquery.js') }}"></script>
+		
 		<!-- Bootstrap JavaScript -->
 		@yield('js')	
-		<!-- jQuery -->
-		
 	</body>
 </html>

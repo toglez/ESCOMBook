@@ -14,7 +14,7 @@ class UserLogin extends BaseController {
 		{
 			
 			if(Auth::user()->tipo == '1'){
-				return Redirect::to('admin');
+				return Redirect::to('administrador');
 			}
 			elseif (Auth::user()->tipo == '2') {
 				return Redirect::to('encargado');
