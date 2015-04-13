@@ -105,14 +105,16 @@ Route::get('agregarUsuario', array('before' => 'auth', function() // Agregar Usu
 
 
 // Toño
-Route::get('/wall', 'WelcomeController@wall');
+Route::get('wall', 'PostController@wall');
 Route::post('wall', 'PostController@store');
-//Route::post('wall/post', 'PostController@publishOptions');
-
 
 Route::post('eliminar','PostController@delete'); //Eliminar
 Route::post('actualizar','PostController@update'); //Actualizar
 
+Route::get('gestionPosts', 'PostController@mostrarTodos');
+Route::get('gestionPosts.show/{id}', 'PostController@show');
+Route::get('gestionPosts.edit/{id}', 'PostController@edit');
+Route::get('gestionPosts.delete/{id}', 'PostController@erase');
 
 Route::get('registrar',function() // Registrar Usuario
 {

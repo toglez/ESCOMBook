@@ -1,4 +1,4 @@
-@extends('master')
+@extends('muro.master')
 
 @section('css')
 	<link href="{{ asset('assets/css/blog-home.css') }}" rel="stylesheet">

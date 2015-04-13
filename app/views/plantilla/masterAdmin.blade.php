@@ -8,6 +8,7 @@
 	<title>Panel de Administración | ESCOMBook</title>
 	
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
+	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -132,9 +133,9 @@ window.onload=function(){startTime();}
 
 		<h3>Gestión de Contenido</h3>
 		<ul class="toggle">
-			<li class="icn_folder"><a href="{{ URL::to('wall') }}"></a>Wall</li>
+			<li class="icn_folder"><a href="{{ URL::to('wall') }}">Muro</a></li>
 			<!-- <li class="icn_folder"><a href="">File Manager</a></li> -->
-			<li class="icn_photo"><a href="#">Imágenes</a></li>
+			<li class="icn_photo"><a href="gestionPosts">Gestión Posts</a></li>
 		</ul>
 
 		<h3>Generación de Reportes</h3>
