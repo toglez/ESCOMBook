@@ -1,21 +1,110 @@
-<?php if(Auth::check()) { ?>
+@extends('plantilla.masterEncargado')
 
+@section('content')
+	<section id="main" class="column">
+		
+		<h4 class="alert_info">¡Bienvenido! 
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Encargado</title>
-	<link rel="stylesheet" href="">
-</head>
-<body>
-	<h2> Bienvenido {{ Auth::user()->name}} </h2>
-	Esta es la Vista del Encargado
+<script>
+var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+var f=new Date();
+document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+</script>
 
-	<br><br>
-	<a href="logout">Cerrar Sesión</a>
-</body>
-</html>
+<div id="reloj"></div>
 
-<?php } ?>
+		</h4>
+		<!-- ESTADISTICAS -->
+		<?php $totalUsers = DB::table('users')->count(); // Saco El total de Usuarios
+			  $activosUsers = DB::table('users')->where('status', '=', '1')->count(); // Activos
+			  $totalPost = DB::table('post')->count(); // Saco El total de Post
+			  $totalComentarios = DB::table('comentario')->count(); // Saco El total de Comentarios
+		?>
+		<article class="module width_full">
+			<header><h3>Estadisticas</h3></header>
+			<div class="module_content">
+				<article class="stats_overview">
+					<div class="overview_today">
+						<p class="overview_day">Usuarios</p>
+						
+						<p class="overview_count">{{$totalUsers}}</p>
+						<p class="overview_type">Pre-registrados</p>
+						
+						<p class="overview_count">{{$activosUsers}}</p>
+						<p class="overview_type">Activos</p>						
+					
+					</div>
+					<div class="overview_previous">
+						<p class="overview_day">Contenido</p>
+
+						<p class="overview_count">{{$totalPost}}</p>
+						<p class="overview_type">Publicaciones</p>
+
+						<p class="overview_count">{{$totalComentarios}}</p>
+						<p class="overview_type">Comentarios</p>
+					</div>
+				</article>
+				<div class="clear"></div>
+			</div>
+		</article><!-- ESTADISTICAS -->
+		
+		<article class="module width_3_quarter">
+		<header><h3 class="tabs_involved">Ultimo Contenido Registrado</h3>
+		<ul class="tabs">
+   			<li><a href="#tab1">Posts</a></li>
+    		<li><a href="#tab2">Comentarios</a></li>
+		</ul>
+		</header>
+
+		<div class="tab_container">
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					 
+    				<th>Contenido del Post</th>  
+    				<th>Publicado por:</th> 
+    				<th>Fecha de Creación</th> 
+    				<th>Acciones</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+			<?php  
+				$posts = DB::select('SELECT u.id as idusuario,p.id,mensaje,u.nombre,u.apPaterno,p.updated_at from post p, users u where u.id = p.idUsuario ORDER BY updated_at desc');
+				$contador = 1;
+			?>
+			@foreach($posts as $p) 
+			<?php if ($contador > 10) {break;}else{$contador = $contador + 1;} ?>
+				<tr> 
+	  				<td><?php 
+	  					if ( strlen($p->mensaje) > 45) 
+	  						echo substr($p->mensaje, 0, 45) ."&nbsp; [...]";
+	  				    else
+							echo substr($p->mensaje, 0, 45); 
+	  				    ?>
+	  				</td> 
+
+					<td>{{ $p->nombre ." ". $p->apPaterno}}</td> 
+					<td><span class="label label-info"></span>{{ $p->updated_at }}</td> 
+					<td>
+						<a href=""><input type="image" src="images/icn_search.png" title="Ver"></a>
+						<a href="editPost?id=<?php echo $p->idusuario?>&id2=<?php echo $p->id?>"><input type="image" src="images/icn_edit.png" title="Editar"></a>
+						<a href=""><input type="image" src="images/icn_trash.png" title="Eliminar"></a>
+					</td> 
+				</tr>
+			@endforeach
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+			
+		</div><!-- end of .tab_container -->
+		
+		</article><!-- end of content manager article -->	
+
+	<div class="spacer"></div>
+	<article><br><br><article>
+	
+</section>
+
+@stop

@@ -5,145 +5,170 @@
 
   <title>ESCOMBook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Seguimiento de Egresados de la Escuela Superior de Cómputo.">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-responsive.css">
+  
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>  
+  
+  
+  <link rel="stylesheet" href="http://www.isc.escom.ipn.mx/css/bootstrap-responsive.min.css">
   <link rel="stylesheet" href="css/extras/font-awesome.min.css">  
-  <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/style.css"> <!-- ESTILOS -->
-
+  
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="css/bootstrap-modal.css" rel="stylesheet">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap-modalmanager.js"></script>
+  <script src="js/bootstrap-modal.js"></script>
+  
+		<script type="text/javascript" src="js/alertas/lib/alertify.js"></script>
+		<link rel="stylesheet" href="js/alertas/themes/alertify.core.css" />
+		<link rel="stylesheet" href="js/alertas/themes/alertify.default.css" />  <!-- Alertas -->
+	 	
 </head>
 
 <body>
-
-        <header>
-              <div id="logo_sep">
-                <img src="images/logos/logoSEP.png">
+      <div class="container">
+        <section class="fondoBlanco">
+        <div id="areaTrabajo">
+            <div class="row-fluid logos">
+              <div class="span6">
+                <img src="images/logos/logoSEP.png" border="0" id="logo1">
               </div>
-              <div id="logo_ipn" >
-                <a href="http://www.ipn.mx/" target="_blank"><img src="images/logos/logoIPNGris.png"></a>
-              </div>  
-       </header>
+              <div class="span6" align="right">
+                <a href="http://www.ipn.mx/" target="_blank">
+                  <img src="images/logos/logoIPNGris.png" border="0">
+                </a>
+              </div>
+            </div> <!-- Fin de logos -->
+        </div>  <!-- Fin de areaTrabajo -->
+       </section>
+
+	</div>
 	
-		<nav>
-  			<ol class="breadcrumb">
-  				<li><a href="http://www.ipn.mx/">Inicio IPN</a>&nbsp;<span>|</span></li>
-				<li><a href="http://www.ipn.mx/Paginas/Correo-Electronico.aspx">Correo Electrónico</a>&nbsp;<span>|</span></li>
-				<li><a href="http://www.ipn.mx/Paginas/Instalaciones.aspx">Instalaciones</a>&nbsp;<span>|</span></li>
-				<li><a href="http://www.ipn.mx/Paginas/Servicios-Medicos.aspx">Servicios Médicos</a>&nbsp;<span>|</span></li>
-				<li><a href="http://www.ipn.mx/Paginas/Calendario-Escolar-IPN.aspx" >Calendario</a>&nbsp;<span>|</span></li>
-				<li><a href="http://www.ipn.mx/Paginas/Contacto.aspx">Contacto</a>&nbsp;</li>
-		    </div><!-- /.nav-collapse -->
-			</ol>
-		</nav>
-		
+<section class="gris">
+	<div id="areaTrabajo">
+    <div class="gris container">
+      <!--<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+       	<span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </a>-->
+    	<div class="nav-collapse pull-right in collapse" style="height: auto;">
+        	<a href="http://www.ipn.mx/" class="ligasInst" target="_blank">Inicio IPN</a>&nbsp;<span class="blanco">|</span>
+          <a href="http://www.ipn.mx/Paginas/Correo-Electronico.aspx" class="ligasInst" target="_blank" title="Correo Institucional">Correo Electrónico</a>&nbsp;<span class="blanco">|</span>
+          <a href="http://www.ipn.mx/Paginas/Instalaciones.aspx" class="ligasInst" title="Instalaciones IPN" target="_blank">Instalaciones</a>&nbsp;<span class="blanco">|</span>
+          <a href="http://www.ipn.mx/Paginas/Servicios-Medicos.aspx" class="ligasInst" title="Servicios Médicos" target="_blank">Servicios Médicos</a>&nbsp;<span class="blanco">|</span>
+          <a href="http://www.ipn.mx/Paginas/Calendario-Escolar-IPN.aspx" class="ligasInst" title="Calendario" target="_blank">Calendario</a>&nbsp;<span class="blanco">|</span>
+          <a href="http://www.ipn.mx/Paginas/Contacto.aspx" class="ligasInst" target="_blank">Contacto</a>&nbsp;
+      </div><!--/.nav-collapse -->
+ 		</div><!-- Fin div container -->
+ </div><!-- Fin areaTrabajo -->
+</section><br>
 
-		<section class="fondoBlanco">
-			<div class="container">
-				<img src="images/logos/logoEscom.png" id="logo_escom">
-					<div id="texto-titulo">
-						<titulo-inicio> Sistema de Seguimiento a Egresados (ESCOMBook). </titulo-inicio>
-					</div><!--/.nav-collapse -->
-			</div>	
-			
-				<article>
+	<section class="fondoBlanco">
+		<div id="areaTrabajo">
+				<div class="container">
+				<img src="images/logos/logoEscom.png" border="0" usemap="#logoMap" id="logo" title="ESCOM - Escuela Superior de Cómputo">
+					<div class="texto-titulo">
+					<titulo-inicio> Sistema de Seguimiento a Egresados (ESCOMBook). </titulo-inicio>
+				    </div>
+				</div>
+		</div>
+	</section>
 
-								     <center>
-					 				 <?php if (Session::has('login_errors')) {?>
-					 				 <p style='color:#FB1D1D'> El Usuario y/o Contraseña son incorrectos. </p>
-					 				 <?php }?>
-					 				</center>					
+	
+	<!-- BOTONES CENTRALES --><br>
+	<center><button data-toggle="modal" type="button" class="btn btn-primary btn-lg" href="#login" data-target="#login">Iniciar Sesión</button>
+	</center>
+	<!-- FIN BOTONES CENTRALES-->	
 
-				<button data-toggle="modal" type="button" class="btn btn-primary btn-lg" href="#login" data-target="#login">Iniciar Sesión</button>
+
+<!-- LOGIN -->
+
+					     <center>
+		 				 <?php if (Session::has('login_errors')) {?><br><br>
+		 				<h4> <p style='color:#FB1D1D'>El CURP y/o Contraseña son incorrectos. </p> </h4>
+		 				 <?php }?>
+
+		 				 <?php if (Session::has('no_activo')) {?><br><br>
+		 				<h4> <p style='color:#FB1D1D'>Actualmente tu cuenta esta inactiva,comunicate con el:<br><br> Lic. José Francisco Serrano García
+						<br>Horario: 9:00 a 15:00 hrs. y 18:00 a 21:00 hrs.
+						<br>Contacto: Tel. 57296000 Ext. 52056 / ext_ae_escom@ipn.mx. </p> </h4>
+		 				 <?php }?>
+
+		 				 <?php if (Session::has('preregistro_incorrecto')) {?><br><br>
+		 				<h4> <p style='color:#FB1D1D'>No estas Pre-Registrado en ESCOMBook,comunicate con el:<br><br> Lic. José Francisco Serrano García
+						<br>Horario: 9:00 a 15:00 hrs. y 18:00 a 21:00 hrs.
+						<br>Contacto: Tel. 57296000 Ext. 52056 / ext_ae_escom@ipn.mx.
+						<br><br>Para verificar tu situación. </p> </h4>
+		 				 <?php }?>	
+
+
+		 				 <?php if (Session::has('preregistro_correcto')) {?><br><br>
+		 				<h4> <p style='color:##1DA643'>Tus Datos Fueron actualizados Correctamente,ingresa con tu CURP y Contraseña que definiste anteriormente. </p> </h4>
+		 				 <?php }?>				 				 	
+
+		 				 <?php if (Session::has('ya_actualizo')) {?><br><br>
+		 				<h4> <p style='color:#FB1D1D'>Ya actualizaste tus datos, ingresa con tu CURP y Contraseña que definiste anteriormente. </p> </h4>
+		 				 <?php }?>			 				  				 
+
+		 				</center>	
+
+
 				<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
-								<h4>Login de Usuario</h4>
+								<center><h4>Login de Usuario</h4></center>
 							</div>
 							  	<div class="modal-body">
-									<form class="form-horizontal" method="post" action="verificarlogin">
-					 				 <?php if (Session::has('login_errors')) {?>
-					 				 <p></p>
-					 				 <?php }else {?>
-					 				 <p> Introduzca Usuario y Contraseña para continuar. </p>
-					 				 <?php } ?>
+									<form class="form-horizontal" method="post" action="verificarlogin"><center
+						 				 <?php if (Session::has('login_errors')) {?>
+						 				 <p></p>
+						 				 <?php }else {?>
+						 				<h4> <p> Introduzca CURP y Contraseña para continuar. </p></h4><br>
+						 				 <?php } ?>
 
-					 				 <div class="control-group">
-										<label class="control-label" for="inputEmail">Nombre de Usuario:</label>
-										<div class="controls">
-						  				<input type="text" name="username" placeholder="Usuario">
+						 				 <div class="control-group">
+											<label class="control-label" for="inputEmail">CURP:</label>
+											<div class="controls">
+							  					<input type="text" name="username" placeholder="CURP" size="30"  required>
+							  				</div>
 						  				</div>
-					  				</div>
-					  				<div class="control-group">
-										<label class="control-label" for="inputPassword">Contraseña:</label>
-										<div class="controls">
-						  				<input type="password" name="password" placeholder="Password">
-										</div>
-					  				</div>
-					  				<br>
-									<p>¿No recuerdas tu usuario y/o contraseña? <a data-toggle="modal"href="#recuperar">Da clic aquí</a></p>
-									 <div class="modal-footer">
-										<input type="submit" value="Enviar"> 
-										<input type="reset"></form>		
-									 </div>
+
+						  				<div class="control-group">
+											<label class="control-label" for="inputPassword">Contraseña:</label>
+											<div class="controls">
+							  					<input type="password" name="password" placeholder="Password" size="30"  required>
+											</div>
+						  				</div><br>
+						  				
+										<p>¿No recuerdas tu contraseña? <a href="recuperarContraseña">Da clic aquí</a></p>
+										 <div class="modal-footer">
+											<input type="submit" value="Enviar"> 
+											<input type="reset">
+										 </div>
+									</form>		
+									
 			  					</div>
 						</div>
 					</div>
 				</div>
+<!-- FIN LOGIN -->	
 
 
-				<button data-toggle="modal" type="button" class="btn btn-primary btn-lg" href="#encuesta" data-target="#encuesta">Encuesta</button>
-				<div class="modal fade" id="encuesta" tabindex="-1" role="dialog" aria-labelledby="modalEncuesta" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
-								<h4>Encuesta</h4>
-							</div>
-							  	<div class="modal-body">
-									<form class="form-horizontal" method="get" action="index.php">
-					 				 <div class="control-group">
-										<label class="control-label" for="input">Nombre Completo:</label>
-										<div class="controls">
-						  				<input type="text" name="nombre_completo">
-						  				</div>
-					  				</div>
-					  				<div class="control-group">
-										<label class="control-label" for="input">Campo 1:</label>
-										<div class="controls">
-						  				<input type="text" name="campo1" placeholder="Campo1">
-										</div>
-					  				</div>
-					  				<div class="control-group">
-										<label class="control-label" for="input">Campo 2:</label>
-										<div class="controls">
-						  				<input type="text" name="campo2" placeholder="Campo2">
-										</div>
-					  				</div>
-					  				<div class="control-group">
-										<label class="control-label" for="input">Campo 3:</label>
-										<div class="controls">
-						  				<input type="text" name="campo3" placeholder="Campo3">
-										</div>
-					  				</div>
-					  				<div class="control-group">
-										<label class="control-label" for="input">Campo 4:</label>
-										<div class="controls">
-						  				<input type="text" name="campo4" placeholder="Campo4">
-										</div>
-					  				</div>
-									 <div class="modal-footer">
-										<input type="submit" value="Enviar Datos"> 	
-									 </div>
-			  					</div>
-						</div>
-					</div>
-				</div>
-			</article>
+	
+	<!-- INICIO CARRUSEL -->
 
-	<article>
-		<div class="container-fluid">
+  <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
 
@@ -181,11 +206,10 @@
 		</div><!-- /.span12 -->          
 	</div><!-- /.row --> 
 </div><!-- /.container -->
-	</article>
 
-		<article>
-		<h4 id="h4">Si es la primera vez que entras a la aplicación, revisa si estás pre-registrado &nbsp
-			<button data-toggle="modal" type="button" class="btn btn-primary btn-lg" href="#revisar" data-target="#revisar">Revisar</button>
+		<article> <center>
+		<h4 id="h4">Si es la primera vez que entras a la aplicación, Verifica si estás pre-registrado &nbsp;
+			<button data-toggle="modal" type="button" class="btn btn-primary btn-lg" href="#revisar" data-target="#revisar">Verificar</button>
 				<div class="modal fade" id="revisar" tabindex="-1" role="dialog" aria-labelledby="modalRevisar" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -194,11 +218,11 @@
 								<h4>Verificar Pre-Registro</h4>
 							</div>
 							  	<div class="modal-body">
-									<form class="form-horizontal" method="get" action="index.php">
+									<form class="form-horizontal" method="post" action="verificarPreRegistro">
 					 				 <div class="control-group">
 										<label class="control-label" for="input">CURP</label>
 										<div class="controls">
-						  				<input type="text" name="curp" placeholder="CURP">
+						  				<input type="text" name="curp" placeholder="CURP" required>
 						  				</div>
 					  				</div>
 									 <div class="modal-footer">
@@ -210,11 +234,12 @@
 					</div>
 				</div>
 		</h4>	
-	</article>
+	</article> </center>
 
-		</section>
-	
-	<footer id="footer">
+
+<!--Footer-->
+  	<!--Footer-->
+  <footer id="footer">
   <center>
     <div class="container">
 		<div class="pull-right">	 
@@ -237,11 +262,21 @@
   </footer>
 <!--/Footer-->  <!--/Footer-->
 
-  <script src="js/estilos.js"></script>
-  <script src="js/jquery-1.11.2.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js'></script>
+  <script src="js/index.js"></script>
 
 </body>
-			
+
+<script>
+			function ok(){
+				alertify.success("Correcto"); 
+				return false;
+			}
+			function error(){
+				alertify.error("Incorrecto"); 
+				return false; 
+			}
+		</script>			
 
 </html>

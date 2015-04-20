@@ -19,11 +19,10 @@
                         <img src="{{ asset('images/Motiva.jpg') }}"  width="100%" alt="">
                     </div>
                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                        {{ Form::open(array('action' => 'PostController@update')) }} 
-                            {{ Form::hidden('created_by', Auth::user()->id) }}
+                        {{ Form::open(array('action' => 'PostController@actualizar')) }} 
                             {{ Form::hidden('idPost', $post->id) }}
                             {{ Form::textarea('feedbox', $post->mensaje, array('class' => 'form-control', 'id' => 'feedbox', 'rows' => '3')) }}<br>
-                            {{ Form::submit('Guardar', array('class' => 'btn btn-primary btn-sm', 'id' => 'post')) }}
+                            {{ Form::submit('Guardar', array('class' => 'btn btn-primary btn-sm')) }}
                         {{ Form::close() }}
                         
                     </div>

@@ -3,7 +3,7 @@
 @section('content')
 	<section id="main" class="column">
 		
-		<h4 class="alert_info">¡Bienvenido! 
+		<h4 class="alert_info">¡Bienvenido! Admin
 
 			<script>
 			var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -36,15 +36,26 @@
 				</tr> 
 			</thead> 
 			<tbody>
+				<?php 
+					$posts = DB::select('SELECT u.id as idusuario, p.id, mensaje, u.nombre, u.apPaterno, p.updated_at from post p, users u where u.id = p.idUsuario ORDER BY updated_at desc');
+					$contador = 1; 
+				?>
 				@foreach($posts as $p)
+				<?php if ($contador > 10) {break;}else{$contador = $contador + 1;} ?>
 				<tr> 
-      				<td>{{ substr($p->mensaje, 0, 50). '[...]' }}</td> 
-    				<td>{{ $p->idUsuario  					   }}</td> 
+      				<td><?php 
+	  					if ( strlen($p->mensaje) > 45) 
+	  						echo substr($p->mensaje, 0, 45) ."&nbsp; [...]";
+	  				    else
+							echo substr($p->mensaje, 0, 45); 
+	  				    ?>
+      				</td> 
+    				<td>{{ $p->nombre ." ". $p->apPaterno}}</td>
     				<td><span class="label label-info"></span>{{ $p->updated_at }}</td> 
     				<!-- {{\Carbon\Carbon::createFromTimestamp(strtotime($p->updated_at))->diffForHumans() }} -->
-    				<td>{{ HTML::linkAction('PostController@show', 'Leer', array($p->id), array('class' => 'btn btn-default btn-xs')) }}
-    					{{ HTML::linkAction('PostController@edit', 'Editar', array($p->id), array('class' => 'btn btn-warning btn-xs')) }}
-    					{{ HTML::linkAction('PostController@erase', 'Eliminar', array($p->id), array('class' => 'btn btn-danger btn-xs')) }}
+    				<td><a href=""><input type="image" src="images/icn_search.png" title="Ver"></a>
+						<a href="editPost?id=<?php echo $p->idusuario?>&id2=<?php echo $p->id?>"><input type="image" src="images/icn_edit.png" title="Editar"></a>
+						<a href="borrar/{{$p->id}}" ><input type="image" src="images/icn_trash.png" title="Eliminar"></a>
     				</td> 
 				</tr>
 				@endforeach

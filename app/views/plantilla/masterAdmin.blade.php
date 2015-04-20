@@ -6,13 +6,9 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Panel de Administración | ESCOMBook</title>
-	
-	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
-	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-	<!--[if lt IE 9]>
-	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<!-- CSS are placed here -->
+    <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
+    @yield('css')
 	<script src="js/jquery-1.11.2.js" type="text/javascript"></script>
 	<script src="js/hideshow.js" type="text/javascript"></script>
 	<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
@@ -95,11 +91,6 @@ window.onload=function(){startTime();}
 			});
 		</script>
 
-
-
-
-
-
 </head>
 
 
@@ -114,7 +105,7 @@ window.onload=function(){startTime();}
 	
 	<section id="secondary_bar">
 		<div class="user">
-			<p>{{ Auth::user()->name}} {{ Auth::user()->last_name}} (<a href="logout">Cerrar Sesión</a>)</p>
+			<p>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}} {{ Auth::user()->apMaterno}} &nbsp; (<a href="logout">Cerrar Sesión</a>)</p>
 		</div>
 	</section><!-- end of secondary bar -->
 	
@@ -133,8 +124,7 @@ window.onload=function(){startTime();}
 
 		<h3>Gestión de Contenido</h3>
 		<ul class="toggle">
-			<li class="icn_folder"><a href="{{ URL::to('wall') }}">Muro</a></li>
-			<!-- <li class="icn_folder"><a href="">File Manager</a></li> -->
+			<li class="icn_folder"><a href="{{ URL::to('administrador.muro') }}">Muro</a></li>
 			<li class="icn_photo"><a href="gestionPosts">Gestión Posts</a></li>
 		</ul>
 
@@ -143,8 +133,6 @@ window.onload=function(){startTime();}
 			<li class="icn_new_article"><a href="#">Nuevo Reporte</a></li>
 			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
 			<li class="icn_categories"><a href="#">Categories</a></li>
-		</ul>
-
 		</ul>
 		
 		<footer>
@@ -157,6 +145,8 @@ window.onload=function(){startTime();}
 	</aside>
 
 	@yield('content')
+	<!-- Bootstrap JavaScript -->
+	@yield('js')
 	
 </body>
 

@@ -16,23 +16,47 @@ Route::get('/', function()  // RAIZ
 {
 	if (Auth::check())
 {
-    		if(Auth::user()->tipo == '1'){
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1'){
 				return Redirect::to('administrador');
 			}
-			elseif (Auth::user()->tipo == '2') {
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
 				return Redirect::to('encargado');
 			}
-			else{
+			elseif (Auth::user()->tipo == '3' and Auth::user()->status == '1') {
 				return Redirect::to('egresado');
-			}// El usuario está autenticado
+			}
+		
 }
  return View::make('login.index'); 
 });
 
 
 
+Route::get('inicio', function()  // INICIO
+{
+ return View::make('login.index'); 
+});
 
-Route::post('verificarlogin','UserLogin@user'); //Login
+
+
+
+
+Route::post('verificarlogin','UserLogin@user'); //Login de Usuarios
+Route::post('verificarPreRegistro','UserLogin@verificarpreregistro'); // Verificar Pre-Registro
+Route::get('PreRegistro', function() // Despliega Vista Pre-Registro
+{
+	return View::make('login.preregistrado');
+});
+
+Route::post('GuardarPreRegistro','UserLogin@guardarpreregistro'); // Guardar Pre-Registro
+
+
+Route::post('recuperar','UserLogin@verificarcorreo'); // Verificar Correo (Recuperacion Contraseña)
+Route::get('recuperarContraseña', function() // Despliega Vista Recuperar
+{
+	return View::make('login.recuperar');
+});
+
 
 
 Route::get('logout',function() //Cerrar Sesión
@@ -46,10 +70,10 @@ Route::get('administrador', array('before' => 'auth', function()  // Tipo 1
 {
 	if (Auth::check())
 {
-    		if(Auth::user()->tipo == '1'){
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1'){
 				return View::make('administrador.index');
 			}
-			elseif (Auth::user()->tipo == '2') {
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
 				return Redirect::to('encargado');
 			}
 			else{
@@ -64,10 +88,10 @@ Route::get('encargado', array('before' => 'auth', function() // Tipo 2
 {
 	if (Auth::check())
 {
-    		if(Auth::user()->tipo == '1'){
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
 				return Redirect::to('administrador');
 			}
-			elseif (Auth::user()->tipo == '2') {
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
 				return View::make('encargado.index');
 			}
 			else{
@@ -77,15 +101,46 @@ Route::get('encargado', array('before' => 'auth', function() // Tipo 2
 
 }));
 
+Route::get('editPost', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+
+return Redirect::to('editarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+
+}));
+
+
+
+Route::get('editarPost', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idPost');
+
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.editarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.editarPost')->with('idUsuario',$valor);
+			}
+			else{
+				return View::make('egresado.editarPost')->with('idUsuario',$valor);
+			}
+}
+
+}));
 
 Route::get('egresado', array('before' => 'auth', function() // Tipo 3
 {
 	if (Auth::check())
 {
-    		if(Auth::user()->tipo == '1'){
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
 				return Redirect::to('administrador');
 			}
-			elseif (Auth::user()->tipo == '2') {
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
 				return Redirect::to('encargado');
 			}
 			else{
@@ -104,9 +159,17 @@ Route::get('agregarUsuario', array('before' => 'auth', function() // Agregar Usu
 }));
 
 
+/* Rutas del muro: PostController */
 // Toño
-Route::get('wall', 'PostController@wall');
-Route::post('wall', 'PostController@store');
+Route::get('egresado', 'PostController@wall');
+Route::post('egresado', 'PostController@store');
+//Nuevas Rutas
+Route::get('egresado.muro', 'PostController@myMuro');
+Route::get('encargado.muro', 'PostController@wall');
+Route::get('encargado.miMuro', 'PostController@myMuro');
+Route::get('administrador.muro', 'PostController@wall');
+// Route::get('wall', 'PostController@wall');
+// Route::post('wall', 'PostController@store');
 
 Route::post('eliminar','PostController@delete'); //Eliminar
 Route::post('actualizar','PostController@update'); //Actualizar
@@ -114,34 +177,13 @@ Route::post('actualizar','PostController@update'); //Actualizar
 Route::get('gestionPosts', 'PostController@mostrarTodos');
 Route::get('gestionPosts.show/{id}', 'PostController@show');
 Route::get('gestionPosts.edit/{id}', 'PostController@edit');
+Route::post('gestionPosts.edit/{id}', 'PostController@actualizar');
 Route::get('gestionPosts.delete/{id}', 'PostController@erase');
 
-Route::get('registrar',function() // Registrar Usuario
-{
-	$user = new User;
-	$user -> name = "Ivan";
-	$user -> last_name = "Peréz";
-	$user -> email = "ivan@hotmail.com";
-	$user -> username = "ivan";
-	$user -> password = Hash::make("789");
-	$user -> tipo = "3";
+Route::get('borrar/{id}', [
+    'as' => 'borrar', 'uses' => 'PostController@erase'
+]);
 
-	$user -> save();
-	return "El Usuario Fue agregado Correctamente";
-
-}
-	);
-
-
-
-Route::get('agregarPost',function() // Registrar Post
-{
-	$post = new Post;
-	$post -> mensaje = "Soy Armando, que pedo!";
-
-
-	$post -> save();
-	return "El Post Fue agregado Correctamente";
-
-}
-	);
+Route::post('egresado', [
+    'as' => 'crear', 'uses' => 'ComentarioController@crear'
+]);
