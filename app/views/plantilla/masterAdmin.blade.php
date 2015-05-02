@@ -8,6 +8,7 @@
 	<title>Panel de Administración | ESCOMBook</title>
 	<!-- CSS are placed here -->
     <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     @yield('css')
 	<script src="js/jquery-1.11.2.js" type="text/javascript"></script>
 	<script src="js/hideshow.js" type="text/javascript"></script>
@@ -69,9 +70,6 @@ window.onload=function(){startTime();}
 				//Examples of how to assign the Colorbox event to elements
 				$(".group1").colorbox({rel:'group1'});
 				$(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
-				$(".vimeo").colorbox({iframe:true, innerWidth:500, innerHeight:409});
-				$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
-				$(".inline").colorbox({inline:true, width:"50%"});
 				$(".callbacks").colorbox({
 					onOpen:function(){ alert('onOpen: colorbox is about to open'); },
 					onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
@@ -130,7 +128,7 @@ window.onload=function(){startTime();}
 
 		<h3>Generación de Reportes</h3>
 		<ul class="toggle">
-			<li class="icn_new_article"><a href="#">Nuevo Reporte</a></li>
+			<li class="icn_new_article"><a href="administrador/reportes">Nuevo Reporte</a></li>
 			<li class="icn_edit_article"><a href="#">Edit Articles</a></li>
 			<li class="icn_categories"><a href="#">Categories</a></li>
 		</ul>

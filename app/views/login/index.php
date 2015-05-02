@@ -119,7 +119,7 @@
 		 				<h4> <p style='color:#FB1D1D'>Ya actualizaste tus datos, ingresa con tu CURP y Contraseña que definiste anteriormente. </p> </h4>
 		 				 <?php }?>			 				  				 
 
-		 				</center>	
+		 				</center>		 				
 
 
 				<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
@@ -127,7 +127,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
-								<center><h4>Login de Usuario</h4></center>
+								<center><h4>LOGIN DE USUARIO</h4></center>
 							</div>
 							  	<div class="modal-body">
 									<form class="form-horizontal" method="post" action="verificarlogin"><center
@@ -140,14 +140,15 @@
 						 				 <div class="control-group">
 											<label class="control-label" for="inputEmail">CURP:</label>
 											<div class="controls">
-							  					<input type="text" name="username" placeholder="CURP" size="30"  required>
+							  					<input type="text" title="Ingresa tu CURP" name="username" placeholder="CURP" size="30"  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" 
+							  					pattern="[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{6}[HM]{1}[A-Z]{5}[A-Z0-9]{2}$"; maxlength="18" required>
 							  				</div>
 						  				</div>
 
 						  				<div class="control-group">
 											<label class="control-label" for="inputPassword">Contraseña:</label>
 											<div class="controls">
-							  					<input type="password" name="password" placeholder="Password" size="30"  required>
+							  					<input type="password" title="Ingresa tu contraseña" name="password" placeholder="Password" size="30"  required>
 											</div>
 						  				</div><br>
 						  				
@@ -222,7 +223,8 @@
 					 				 <div class="control-group">
 										<label class="control-label" for="input">CURP</label>
 										<div class="controls">
-						  				<input type="text" name="curp" placeholder="CURP" required>
+						  				<input type="text" name="curp" title="Ingresa tu CURP" placeholder="CURP" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" 
+						  				pattern="[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{6}[HM]{1}[A-Z]{5}[A-Z0-9]{2}$"; required>
 						  				</div>
 					  				</div>
 									 <div class="modal-footer">

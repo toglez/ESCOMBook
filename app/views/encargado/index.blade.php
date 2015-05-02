@@ -15,12 +15,27 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 <div id="reloj"></div>
 
 		</h4>
+
 		<!-- ESTADISTICAS -->
 		<?php $totalUsers = DB::table('users')->count(); // Saco El total de Usuarios
 			  $activosUsers = DB::table('users')->where('status', '=', '1')->count(); // Activos
 			  $totalPost = DB::table('post')->count(); // Saco El total de Post
 			  $totalComentarios = DB::table('comentario')->count(); // Saco El total de Comentarios
 		?>
+
+		 <?php if (Session::has('editarPost_index')) {?>
+			<h4 class="alert_success">Post Actualizado Correctamente!</h4>
+		 <?php }?>	
+
+		 <?php if (Session::has('eliminarPost_index')) {?>
+			<h4 class="alert_success">Post Eliminado Correctamente!</h4>
+		 <?php }?>	
+
+		<?php if (Session::has('eliminarComentario_index')) {?>
+			<h4 class="alert_success">Comentario Eliminado Correctamente!</h4>
+		 <?php }?>	
+
+
 		<article class="module width_full">
 			<header><h3>Estadisticas</h3></header>
 			<div class="module_content">
@@ -50,10 +65,9 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 		</article><!-- ESTADISTICAS -->
 		
 		<article class="module width_3_quarter">
-		<header><h3 class="tabs_involved">Ultimo Contenido Registrado</h3>
+		<header><h3 class="tabs_involved">Ultimos 10 Posts Registrados</h3>
 		<ul class="tabs">
    			<li><a href="#tab1">Posts</a></li>
-    		<li><a href="#tab2">Comentarios</a></li>
 		</ul>
 		</header>
 
@@ -65,46 +79,49 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
    					 
     				<th>Contenido del Post</th>  
     				<th>Publicado por:</th> 
-    				<th>Fecha de Creación</th> 
+    				<th>Última fecha de actualización</th> 
     				<th>Acciones</th> 
 				</tr> 
 			</thead> 
 			<tbody> 
-			<?php  
+				<?php  
 				$posts = DB::select('SELECT u.id as idusuario,p.id,mensaje,u.nombre,u.apPaterno,p.updated_at from post p, users u where u.id = p.idUsuario ORDER BY updated_at desc');
 				$contador = 1;
-			?>
-			@foreach($posts as $p) 
-			<?php if ($contador > 10) {break;}else{$contador = $contador + 1;} ?>
+				?>
+				@foreach($posts as $p) 
+				<?php if ($contador > 10) {break;}else{$contador = $contador + 1;} ?>
 				<tr> 
-	  				<td><?php 
-	  					if ( strlen($p->mensaje) > 45) 
-	  						echo substr($p->mensaje, 0, 45) ."&nbsp; [...]";
-	  				    else
-							echo substr($p->mensaje, 0, 45); 
-	  				    ?>
-	  				</td> 
+      				<td><?php 
+      					if ( strlen($p->mensaje) > 45) 
+      					{ 
+      						echo substr($p->mensaje, 0, 45) ."&nbsp; [...]";  
+      				    }
+      				    else
+      				    { 
+      				    	echo substr($p->mensaje, 0, 45); 
+      				    }
+      				    ?>
+      				</td> 
 
-					<td>{{ $p->nombre ." ". $p->apPaterno}}</td> 
-					<td><span class="label label-info"></span>{{ $p->updated_at }}</td> 
-					<td>
-						<a href=""><input type="image" src="images/icn_search.png" title="Ver"></a>
-						<a href="editPost?id=<?php echo $p->idusuario?>&id2=<?php echo $p->id?>"><input type="image" src="images/icn_edit.png" title="Editar"></a>
-						<a href=""><input type="image" src="images/icn_trash.png" title="Eliminar"></a>
-					</td> 
+    				<td>{{ $p->nombre ." ". $p->apPaterno}}</td> 
+    				<td><span class="label label-info"></span>{{ $p->updated_at }}</td> 
+    				<td>
+    					<a href="vePost?id=<?php echo $p->idusuario?>&id2=<?php echo $p->id?>"><input type="image" src="images/icn_search.png" title="Ver"></a>
+    					<a href="editPost?id=<?php echo $p->idusuario?>&id2=<?php echo $p->id?>"><input type="image" src="images/icn_edit.png" title="Editar"></a>
+    					<a href="eliminaPost?id=<?php echo $p->idusuario?>&id2=<?php echo $p->id?>"><input type="image" src="images/icn_trash.png" title="Eliminar"></a>
+    				</td> 
 				</tr>
-			@endforeach
+				@endforeach		
+    	
 			</tbody> 
 			</table>
 			</div><!-- end of #tab1 -->
 			
 		</div><!-- end of .tab_container -->
-		
 		</article><!-- end of content manager article -->	
 
-	<div class="spacer"></div>
-	<article><br><br><article>
-	
-</section>
+		<div class="spacer"></div> 
+		<article><br><br><article>
 
-@stop
+	</section>
+@stop			

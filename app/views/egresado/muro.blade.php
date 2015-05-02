@@ -1,32 +1,36 @@
 @extends('plantilla.masterEgresado')
 
+@section('css')
+{{ HTML::style('css/bootstrap.css') }}
+{{ HTML::style('css/bootstrap-theme.css') }}
+{{ HTML::style('assets/css/vistaMuro.css') }}   
+@stop
+
 @section('content')
 	<!-- Page Content -->
-    <div class="container">
+    <section id="main" class="column">
     	<br>
         <!-- Blog Entries Column -->
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="row">
-                <br>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="media">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <a href="#">
-                    <img src="uploads/perfil/{{ Auth::user()->id }}.jpg" width="64px" height="64px"></a>
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" width="64px" height="64px"></a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                    {{ Form::open(array('action' => 'PostController@store', 'files' => true)) }} 
+                    {{ Form::open(array('route' => 'crearP', 'files' => true)) }}
                         {{ Form::hidden('created_by', Auth::user()->id) }}
                         {{ Form::textarea('feedbox', null, array('class' => 'form-control', 'id' => 'feedbox', 'placeholder' => 'Escribe algo...', 'rows' => '3')) }}
                         <br>
-                        <div id="variable" class="hidden"><img id="img_user" src="uploads/muro/blank_user.jpg" class="img-rounded" width="100"></div>
                         <div class="fileUpload btn btn-default btn-sm" id="monitoreo"><span class="glyphicon glyphicon-picture"></span>
                             {{ Form::file('image', array('id' => 'archivo', 'class' => 'upload')) }}
                         </div>
-                    <div class="pull-right">
-                        {{ Form::button('Publicar Post', array('class'=>'btn btn-primary btn-xs', 'type'=>'submit')) }}
+                        <div class="pull-right">
+                        {{ Form::button('Publicar Post', array('class'=>'btn btn-primary', 'type'=>'submit')) }}
                         {{ Form::close() }}
                     </div>
-                </div>
-                
+                        <div id="variable" class=""><img id="img_user" src="uploads/muro/imagen_vacia.png" class="img-rounded" width="10"></div>
+
+                </div>                
             </div>
             <hr>
             <!-- Posts -->
@@ -34,16 +38,27 @@
             <!-- Second -->
             <!-- Caso post sin imagen -->
             @foreach ($posts as $post)
+            <?php 
+                $resultados = DB::select('SELECT u.nombre,u.apPaterno,u.apMaterno from users u where u.id = ?', array($post->idUsuario));
+
+                    foreach ($resultados as $resultado)
+                    {
+                        $dato1 = $resultado->nombre;
+                        $dato2 = $resultado->apPaterno;
+                        $dato3 = $resultado->apMaterno;
+                                        
+                    }
+            ?>            
             @if($post->tipo_post == '0')
             <div class="media">
-                <div class="media-left">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="uploads/perfil/{{ $post->idUsuario }}.jpg" width="64px" height="64px" data-holder-rendered="true">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="#">
+                        <img src="uploads/perfil/{{ $post->idUsuario }}.jpg" class="media-object" width="64px" height="64px">
                     </a>
                 </div>
-                <div class="media-body">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                     <div class="media-heading">
-                        <b>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}}</b>
+                        <b><?php echo $dato1 ." ".$dato2 ." ".$dato3 ;?></b>
                         <!-- Menu Derecho -->
                         <div class="dropdown pull-right">
                             <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -54,8 +69,8 @@
                                 <li role="presentation"><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
                             </ul>
                         </div>
-                        <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
                     </div>
+                    <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
                     <p>{{ $post->mensaje }}</p>
                     <div>{{ HTML::link('#', 'Me Gusta')}}</div>
                     <!-- Comentarios -->
@@ -65,13 +80,22 @@
                         <div class="media">
                             <div class="media-left">
                                 <a class="pull-left" href="#">
-                                    <img src="uploads/perfil/{{ $c->idUser }}.jpg" class="media-object" width="54px" height="54px" data-holder-rendered="true">
+                                    <img src="uploads/perfil/{{ $c->idUsuario }}.jpg" class="media-object" width="54px" height="54px" data-holder-rendered="true">
                                 </a>
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <b>{{ $c->idUser }}</b>
-                                    <button type="button" class="close" aria-label="Close" href="{{ URL::to('egresado') }}"><span aria-hidden="true">&times;</span></button>
+                                    <b>{{ $c->idUsuario }}</b>
+                                    <!-- Menu derecho -->
+                                    <div class="dropdown pull-right">
+                                        <button class="btn btn-default btn-xs close dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                            <li role="presentation"><a data-toggle="modal" data-idcomm="{{ $c->id }}" data-msg="{{ $c->mensaje }}" class="open-Modal" href="#editModal">Editar...</a></li>
+                                            <li role="presentation">{{ HTML::linkRoute('borrarComentario', 'Eliminar', array($c->id)) }}</li>
+                                        </ul>
+                                    </div>
                                     <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
                                 </div>
                                 <p>{{ $c->mensaje }}</p>
@@ -80,60 +104,69 @@
                         @endif
                     @endforeach
                     @endforeach
-                </div>
-            </div>
-                          
-            @else
-                <!-- Caso en que el post tiene una imagen -->
-                <div class="row">
+                </div><!-- col-10 -->
+                <!-- Fila comentarios --> 
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <img src="uploads/perfil/{{ $post->idUsuario }}.jpg" class="img-circle" width="100%" alt="">
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" class="pull-right" width="50px" height="50px"></a>
                 </div>
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                    <b>{{ Auth::user()->nombre}} {{ Auth::user()->apPaterno}}</b>
-                        <!-- Menu Derecho -->
-                        @if(Auth::user()->tipo == '1' || Auth::user()->tipo == '2')
-                        <!-- Los admin y encargados momentaneamente pueden editar de todos -->
+                    {{ Form::open(array('route' => 'crearC', 'files' => true)) }} 
+                        {{ Form::hidden('created_by', Auth::user()->id) }}
+                        {{ Form::hidden('post', $post->id) }}
+                        <div class="input-group input-group-sm">
+                            {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'maxlength' => '500', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
+                            <span class="input-group-btn">
+                                {{Form::button('<i class="glyphicon glyphicon-camera"></i>', array('type' => 'submit', 'class' => 'btn btn-default', 'onClick' => 'return chkComment()')) }}
+                            </span>
+                        </div><!-- /input-group -->
+                    {{ Form::close() }}
+                </div>
+            </div>
+            @else
+            <!-- Caso en que el post tiene una imagen -->
+            <div class="media">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="#"><img src="uploads/perfil/{{ $post->idUsuario }}.jpg" width="64px" height="64px"></a>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <b><?php echo $dato1 ." ".$dato2 ." ".$dato3 ;?></b>
+                    <!-- Menu Derecho -->
+                    @if($post->permiso == '3') <!-- Aqui debo hacer algo!! -->
+                        @if($post->idUsuario == Auth::user()->id)   <!-- Con esto valido que solo puedas editar tus comments -->
                         <div class="pull-right" id="delete">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><img src="images/flecha-opc.png" class="img-circle" width="100%" alt=""></a>
-                                <ul class="dropdown-menu" role="menu">
-                                <li><a data-toggle="modal" data-idpublicacion="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#editar">Editar</a>
-                                <li><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
-                                </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><img src="images/flecha-opc.png" class="img-circle" width="100%" alt=""></a>
+                            <ul class="dropdown-menu" role="menu">
+                            <li><a data-toggle="modal" data-idpublicacion="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#editar">Editar</a>
+                            <li><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
+                            </ul>
                         </div>
-                        <div class="pull-right">
-                            {{ Form::open(array('action' => 'PostController@delete')) }} 
-                            {{ Form::hidden('invisible', $post->id) }}
-                            {{ Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>', array('class'=>'btn btn-default btn-xs', 'aria-label' => 'Borrar', 'type'=>'submit')) }}
-                            {{ Form::close() }}
-                        </div>
-                        @elseif($post->permiso == '3') <!-- Aqui debo hacer algo!! -->
-                            @if($post->idUsuario == Auth::user()->id)   <!-- Con esto valido que solo puedas editar tus comments -->
-                            <div class="pull-right" id="delete">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><img src="images/flecha-opc.png" class="img-circle" width="100%" alt=""></a>
-                                <ul class="dropdown-menu" role="menu">
-                                <li><a data-toggle="modal" data-idpublicacion="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#editar">Editar</a>
-                                <li><a data-toggle="modal" data-idpost="{{ $post->id }}" data-mensaje="{{ $post->mensaje }}" class="open-Modal" href="#eliminar">Eliminar</a></li>
-                                </ul>
-                            </div>
-                            <div class="pull-right">
-                                {{ Form::open(array('action' => 'PostController@delete')) }}
-                                {{ Form::hidden('invisible', $post->id) }}
-                                {{ Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>', array('class'=>'btn btn-default btn-sm', 'aria-label' => 'Borrar', 'type'=>'submit')) }}
-                                {{ Form::close() }}
-                            </div>
-                            @endif
                         @endif
+                    @endif
                     <div class="text-muted"><small>{{ $post->updated_at }}</small></div>
                     <div>{{ $post->mensaje }}</div>
                     <div><img src="{{ $post->rutaMultimedia }}" height="400" width="auto"></div>
                 </div><!-- end col-10 -->
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <a href="#"><img src="uploads/perfil/{{ Auth::user()->id }}.jpg" class="pull-right" width="50px" height="50px"></a>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    {{ Form::open(array('route' => 'crearC', 'files' => true)) }} 
+                        {{ Form::hidden('created_by', Auth::user()->id) }}
+                        {{ Form::hidden('post', $post->id) }}
+                        <div class="input-group input-group-sm">
+                          {{ Form::textarea('commentbox', null, array('class' => 'form-control', 'id' => 'commentbox', 'placeholder' => 'Escribe tu comentario...', 'rows' => '1')) }}
+                          <span class="input-group-btn">
+                            {{Form::button('<i class="glyphicon glyphicon-camera"></i>', array('type' => 'submit', 'class' => 'btn btn-default', 'onClick' => 'return chkComment()'))}}
+                          </span>
+                        </div><!-- /input-group -->
+                    {{ Form::close() }}
+                </div>
             </div><!-- end row -->
             @endif
             <hr>
             @endforeach
         </div><!-- Col-6 -->
-
+</section>
 
         <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="modalEditar" aria-hidden="true">
             <div class="modal-dialog">
@@ -183,6 +216,25 @@
              </div>
          </div>
 
+         <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Editar Comentario</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input name="idcomm" id="comment" alight="center" readonly size="1"></input>
+                        <textarea class="form-control" rows="3" name="msg" id="MSG" value=""></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 <script type="text/javascript">                                 // BORRAR 
@@ -209,6 +261,7 @@
 @section('js')
 <script src="{{ asset('js/custom.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
+{{ HTML::script('js/antonio.js') }}
 <script type="text/javascript">
 document.getElementById("uploadBtn").onchange = function () {
     document.getElementById("uploadFile").value = this.value;
@@ -245,6 +298,7 @@ document.getElementById("uploadBtn").onchange = function () {
                     alert('El formato de imagen no es válido: debe seleccionar una imagen JPG, PNG o GIF.');
                 } else {
                     jQuery('#img_user').attr('src', origen.result);
+                    jQuery('#img_user').attr('width', 100);
                     
                 }
 

@@ -6,19 +6,16 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Muro | ESCOMBook</title>
-	
+	<!-- CSS are placed here -->	
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
-	{{ HTML::style('css/bootstrap.css') }}
-    {{ HTML::style('css/bootstrap-theme.css') }}
-    {{ HTML::style('assets/css/vistaMuro.css') }}
+	<link rel="stylesheet" href="css/bootstrap.min.css">
     @yield('css')
 	<script src="js/jquery-1.11.2.js" type="text/javascript"></script>
 	<script src="js/hideshow.js" type="text/javascript"></script>
 	<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/jquery.equalHeight.js"></script>
 	<script type="text/javascript">
-		<link rel="stylesheet" href="css/colorbox.css" />
-		<script src="js/jquery.colorbox.js">
+		
 	</script>
 
 

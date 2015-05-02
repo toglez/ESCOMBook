@@ -10,6 +10,7 @@
 		<!-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"> -->
 		{{ HTML::style('css/bootstrap.css') }}
         {{ HTML::style('css/bootstrap-theme.css') }}
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<!-- jQuery -->
 		<script src="js/jquery-1.11.2.js" type="text/javascript"></script>
 		<!-- Custom CSS --> <!-- CSS Dinámicos -->

@@ -1422,7 +1422,7 @@ pre code {
   position: relative;
   min-height: 1px;
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 8%;
 }
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
   float: left;
@@ -1437,7 +1437,7 @@ pre code {
   width: 83.33333333%;
 }
 .col-xs-9 {
-  width: 75%;
+  width: 85%;
 }
 .col-xs-8 {
   width: 66.66666667%;
@@ -1473,7 +1473,7 @@ pre code {
   right: 83.33333333%;
 }
 .col-xs-pull-9 {
-  right: 75%;
+  right: 85%;
 }
 .col-xs-pull-8 {
   right: 66.66666667%;
@@ -1512,7 +1512,7 @@ pre code {
   left: 83.33333333%;
 }
 .col-xs-push-9 {
-  left: 75%;
+  left: 85%;
 }
 .col-xs-push-8 {
   left: 66.66666667%;
@@ -1551,7 +1551,7 @@ pre code {
   margin-left: 83.33333333%;
 }
 .col-xs-offset-9 {
-  margin-left: 75%;
+  margin-left: 85%;
 }
 .col-xs-offset-8 {
   margin-left: 66.66666667%;
@@ -1594,7 +1594,7 @@ pre code {
     width: 83.33333333%;
   }
   .col-sm-9 {
-    width: 75%;
+    width: 85%;
   }
   .col-sm-8 {
     width: 66.66666667%;
@@ -1630,7 +1630,7 @@ pre code {
     right: 83.33333333%;
   }
   .col-sm-pull-9 {
-    right: 75%;
+    right: 85%;
   }
   .col-sm-pull-8 {
     right: 66.66666667%;
@@ -1669,7 +1669,7 @@ pre code {
     left: 83.33333333%;
   }
   .col-sm-push-9 {
-    left: 75%;
+    left: 85%;
   }
   .col-sm-push-8 {
     left: 66.66666667%;
@@ -1708,7 +1708,7 @@ pre code {
     margin-left: 83.33333333%;
   }
   .col-sm-offset-9 {
-    margin-left: 75%;
+    margin-left: 85%;
   }
   .col-sm-offset-8 {
     margin-left: 66.66666667%;
@@ -1752,7 +1752,7 @@ pre code {
     width: 83.33333333%;
   }
   .col-md-9 {
-    width: 75%;
+    width: 85%;
   }
   .col-md-8 {
     width: 66.66666667%;
@@ -1788,7 +1788,7 @@ pre code {
     right: 83.33333333%;
   }
   .col-md-pull-9 {
-    right: 75%;
+    right: 85%;
   }
   .col-md-pull-8 {
     right: 66.66666667%;
@@ -1827,7 +1827,7 @@ pre code {
     left: 83.33333333%;
   }
   .col-md-push-9 {
-    left: 75%;
+    left: 85%;
   }
   .col-md-push-8 {
     left: 66.66666667%;
@@ -1866,7 +1866,7 @@ pre code {
     margin-left: 83.33333333%;
   }
   .col-md-offset-9 {
-    margin-left: 75%;
+    margin-left: 85%;
   }
   .col-md-offset-8 {
     margin-left: 66.66666667%;
@@ -1897,7 +1897,7 @@ pre code {
   }
 }
 @media (min-width: 1200px) {
-  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12,  {
     float: left;
   }
   .col-lg-12 {
@@ -1910,7 +1910,7 @@ pre code {
     width: 83.33333333%;
   }
   .col-lg-9 {
-    width: 75%;
+    width: 85%;
   }
   .col-lg-8 {
     width: 66.66666667%;
@@ -1946,7 +1946,7 @@ pre code {
     right: 83.33333333%;
   }
   .col-lg-pull-9 {
-    right: 75%;
+    right: 85%;
   }
   .col-lg-pull-8 {
     right: 66.66666667%;
@@ -1985,7 +1985,7 @@ pre code {
     left: 83.33333333%;
   }
   .col-lg-push-9 {
-    left: 75%;
+    left: 85%;
   }
   .col-lg-push-8 {
     left: 66.66666667%;
@@ -2024,7 +2024,7 @@ pre code {
     margin-left: 83.33333333%;
   }
   .col-lg-offset-9 {
-    margin-left: 75%;
+    margin-left: 85%;
   }
   .col-lg-offset-8 {
     margin-left: 66.66666667%;
@@ -3193,7 +3193,7 @@ tbody.collapse.in {
 }
 .dropdown-menu {
   position: absolute;
-  top: 10%;
+  top: 40%;
   left: 0;
   z-index: 1000;
   display: none;

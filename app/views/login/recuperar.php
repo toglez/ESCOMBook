@@ -110,8 +110,10 @@
 					 				 <?php }else {?>
 					 				 <h3> Introduzca el CURP y Correo con el que estas registrado para continuar.</h3>
 					 				 <?php } ?><br>
-									<input type="text" name="username" placeholder="CURP" size="50" required><br><br>
-						  			<input type="email" name="correo" placeholder="E-mail" size="50" required>
+									<input type="text" title="Ingresa tu CURP" name="username" placeholder="CURP" size="50" 
+									style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="18" 
+									pattern="[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{6}[HM]{1}[A-Z]{5}[A-Z0-9]{2}$"; required><br><br>
+						  			<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
 					  				<br><br><br>
 										<input class="btn btn-primary btn-lg" type="submit" value="Enviar"> &nbsp;
 										<input class="btn btn-primary btn-lg" type="reset" value="Borrar">

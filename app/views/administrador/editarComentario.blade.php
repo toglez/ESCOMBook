@@ -18,23 +18,25 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 		<!-- INICIO DEL MAIN -->
 		<article class="module width_full">
-			<header><h3>EDITAR POST</h3></header>
+			<header><h3>EDITAR COMENTARIO</h3></header>
 				<div class="module_content"><center>
 					<?php 
 
 						$idSession = Auth::user()->id; // ID del usuario en Session;
 					    $dato0 = $idUser;
-						$dato1 = $idPost;
+						$dato1 = $idComentario;
+						$envioidPOST = $idPOST;
 
-					if ($idUser == null && $idPost == null ) { 
-					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL;
+						Session::put('idUsuarioSession', $envioidPOST);		
+						Session::put('idSession', $envioidPOST);								
+
+					if ($idUser == null && $idComentario == null ) { 
+					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL; $dato7 = NULL;
 					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
 					}
 					else{
 
-						if ($idSession == $dato0) {
-
-						$resultados = DB::select('SELECT u.id,p.mensaje,u.nombre,u.apPaterno,u.apMaterno,u.username from post p, users u where u.id = p.idUsuario AND u.id = ? AND p.id = ?', array($idUser,$idPost));
+						$resultados = DB::select('SELECT u.id,c.mensaje,u.nombre,u.apPaterno,u.apMaterno,u.username,c.idPost from comentario c, users u where u.id = c.idUsuario AND u.id = ? AND c.id = ?', array($idUser,$idComentario));
 
 								foreach ($resultados as $resultado)
 									{
@@ -43,15 +45,20 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 							    		$dato4 = $resultado->apPaterno;
 							    		$dato5 = $resultado->apMaterno;
 							    		$dato6 = $resultado->username;
+							    		$dato7 = $resultado->idPost;
 							    		
 									}
-											
+
+									Session::put('idPostSession', $dato7);
+
+
+						if ($idSession == $dato0) {												
 					?>
 
 
-								<form  method="post" action="GuardarEditarPost">
+								<form  method="post" action="GuardarEditarComentario">
 								<?php if ($idUser =! null) {?>
-								<h3> Hola <?php echo $dato3; ?> por favor edita en la parte inferior tu post.</h3>
+								<h3> Hola <?php echo $dato3; ?> por favor edita en la parte inferior tu comentario.</h3>
 								<?php } else { echo "<br>";}?>
 
 					 				<h4>
@@ -62,17 +69,19 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 									CURP:&nbsp;<input type="text"  name="username" placeholder="CURP" value="<?php echo $dato6;?>" readonly><br><br>
 
 						<fieldset>
-							<label>Contenido del Post</label>
+							<label>Contenido del Comentario</label>
 							<textarea rows="4" name="mensaje" required ><?php echo $dato2;?></textarea>
 						</fieldset>
 					  			
 					  				<br><br>
 
 									<input id="boton" class="btn" type="submit" value="Actualizar Post"> &nbsp;
-									<a class="btn" href="administrador">Cancelar</a><br><br><br><br>
+									<a class="btn" href="vePost?id=<?php echo $idPOST?>&id2=<?php echo $dato7?>">Cancelar</a><br><br><br><br>
 								</form>	
 
-						<?php } else { ?> <br><br><h2>No puedes editar este Post</h2><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php }?>		
+						<?php } else { 
+
+							?> <br><br><h2>No puedes editar este Comentario</h2><br><br><a class="btn"  href="vePost?id=<?php echo $idPOST?>&id2=<?php echo $dato7?>">Regresar</a><br><br><br><br> <?php }?>		
 
 				<?php }?>			
 

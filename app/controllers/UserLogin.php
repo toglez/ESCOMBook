@@ -152,6 +152,7 @@ class UserLogin extends BaseController {
 		$nombre = Input::get('nombre');
 		$apPaterno = Input::get('apPaterno');
 		$apMaterno = Input::get('apMaterno');
+		$correo = Input::get('correo');
 		$curp = Input::get('username');
 		$password = Input::get('password');
 		$tipo = Input::get('tipo');
@@ -170,9 +171,9 @@ class UserLogin extends BaseController {
 			$user -> password = Hash::make($password);
 		    $user -> status = "1";
 
-			$user->save();	 // Guardo	
+			$user->save();	 // Guardo	Datos Usuario
 
-$resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', array($idusuario));
+        $resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', array($idusuario));
 
 		foreach ($resultados as $resultado)
 		{
@@ -183,7 +184,15 @@ $resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', a
 			$egresado = DatosEgresado::find($idEgresado);
 			$egresado -> boleta = $boleta;
 
-			$egresado->save();	 // Guardo
+			$egresado->save();	 // Guardo Boleta
+
+
+			$mail = new Correo;
+			$mail -> idUsuario = $idusuario;
+			$mail -> correo = $correo;
+		    $mail -> tipoCorreo = 1;  // Asigna por Default "Personal"
+
+			$mail -> save(); // Guardo Correo
 
 			return Redirect::to('/')->with('preregistro_correcto',true);
 

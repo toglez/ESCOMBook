@@ -18,23 +18,24 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 		<!-- INICIO DEL MAIN -->
 		<article class="module width_full">
-			<header><h3>EDITAR POST</h3></header>
+			<header><h3>COMENTARIO DEL POST</h3></header>
 				<div class="module_content"><center>
 					<?php 
 
 						$idSession = Auth::user()->id; // ID del usuario en Session;
+						$nombreSession = Auth::user()->nombre; // ID del usuario en Session;
 					    $dato0 = $idUser;
-						$dato1 = $idPost;
+						$dato1 = $idComentario;
+						$envioidPOST = $idPOST;
 
-					if ($idUser == null && $idPost == null ) { 
-					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL;
+					if ($idUser == null && $idComentario == null ) { 
+					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL; $dato9=null;
 					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
 					}
 					else{
 
-						if ($idSession == $dato0) {
 
-						$resultados = DB::select('SELECT u.id,p.mensaje,u.nombre,u.apPaterno,u.apMaterno,u.username from post p, users u where u.id = p.idUsuario AND u.id = ? AND p.id = ?', array($idUser,$idPost));
+						$resultados = DB::select('SELECT u.id,c.mensaje,u.nombre,u.apPaterno,u.apMaterno,u.username,c.created_at,c.updated_at,c.idPost from comentario c, users u where u.id = c.idUsuario AND u.id = ? AND c.id = ?', array($idUser,$idComentario));
 
 								foreach ($resultados as $resultado)
 									{
@@ -43,15 +44,18 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 							    		$dato4 = $resultado->apPaterno;
 							    		$dato5 = $resultado->apMaterno;
 							    		$dato6 = $resultado->username;
+							    		$dato7 = $resultado->created_at;
+							    		$dato8 = $resultado->updated_at;
+							    		$dato9 = $resultado->idPost;
 							    		
 									}
 											
 					?>
 
 
-								<form  method="post" action="GuardarEditarPost">
+								<form  method="post">
 								<?php if ($idUser =! null) {?>
-								<h3> Hola <?php echo $dato3; ?> por favor edita en la parte inferior tu post.</h3>
+								<h3> Hola <?php echo $nombreSession; ?> el comentario contiene lo siguiente:</h3>
 								<?php } else { echo "<br>";}?>
 
 					 				<h4>
@@ -61,25 +65,50 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 									CURP:&nbsp;<input type="text"  name="username" placeholder="CURP" value="<?php echo $dato6;?>" readonly><br><br>
 
+									Creado:&nbsp;<input type="text"  name="creado" placeholder="Creado" value="<?php echo $dato7;?>" readonly>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									Actualizado:&nbsp;<input type="text"  name="actualizado" placeholder="Actualizado" value="<?php echo $dato8;?>" readonly><br><br>
+
 						<fieldset>
-							<label>Contenido del Post</label>
-							<textarea rows="4" name="mensaje" required ><?php echo $dato2;?></textarea>
+							<label>Contenido en el Comentario</label>
+							<textarea rows="4" name="mensaje" required readonly><?php echo $dato2;?></textarea>
 						</fieldset>
-					  			
-					  				<br><br>
+					  	<br>
 
-									<input id="boton" class="btn" type="submit" value="Actualizar Post"> &nbsp;
-									<a class="btn" href="administrador">Cancelar</a><br><br><br><br>
-								</form>	
+					  	<fieldset>
+								<label>Multimedia</label><br>
+								<?php $Comentario = Comentario::find($idComentario);?>
 
-						<?php } else { ?> <br><br><h2>No puedes editar este Post</h2><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php }?>		
+							<?php if ($Comentario->rutaMultimedia != null){ ?>
+
+							<div class="module_content">
+
+								<a class="group1" href="{{ $Comentario->rutaMultimedia }}">
+								    <img src="{{ $Comentario->rutaMultimedia }}" height="20%" width="20%">
+								</a>
+							
+							</div>							
+								
+							<?php } else{ ?>
+								<h4 class="alert_warning">No contiene archivo Multimedia.</h4>
+							<?php } ?>
+
+
+
+
+						</fieldset>
+
+						<br><br>
+
+						<a class="btn" href="vePost?id=<?php echo $envioidPOST?>&id2=<?php echo $dato9?>">Regresar</a><br><br><br><br>
+						</form>	
+
 
 				<?php }?>			
 
 				</div>
 		</article><!-- end of styles article -->
 		<div class="spacer"></div>
-
+	
 	</section>			
 
 @stop

@@ -141,21 +141,28 @@ if ($curp == null) {
 					 				 <h3> Bienvenido <?php echo $dato1; ?> por favor completa tus datos para continuar.</h3>
 					 				 <?php } ?><br>
 					 				<h4>
-									ID:&nbsp;<input type="text" name="id" placeholder="IdUsuario" value="<?php echo $dato0;?>" readonly><br><br>
-					 			    Nombre:&nbsp;<input type="text" name="nombre" placeholder="Nombre" value="<?php echo $dato1;?>"required><br><br>
-					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" value="<?php echo $dato2;?>"required><br><br>
-					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno" value="<?php echo $dato3;?>"required><br><br>
+									<input type="hidden" name="id" placeholder="IdUsuario" value="<?php echo $dato0;?>" readonly>
+					 			    Nombre(s):&nbsp;<input type="text" name="nombre" placeholder="Nombre" value="<?php echo $dato1;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="50" required><br><br>
+					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" value="<?php echo $dato2;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40"required><br><br>
+					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno" value="<?php echo $dato3;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40"required><br><br>
+									
+									Correo:&nbsp;<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>
+
 									CURP:&nbsp;<input type="text" name="username" placeholder="CURP" value="<?php echo $dato4;?>" readonly><br><br>
-									Contraseña:&nbsp;<input type="password" name="password" placeholder="Escriba una Contraseña"><br><br>
-									Tipo:&nbsp;<input type="text" name="tipo" placeholder="CURP" value="<?php echo $dato5;?>" readonly><br><br>
-									Status:&nbsp;<input type="text" name="status" placeholder="CURP" value="<?php echo $dato6;?>" readonly><br><br><br>
-					 				Boleta:&nbsp; <input type="text" name="boleta" placeholder="Boleta" value="<?php echo $egresado1;?>"required><br><br>
+
+									Contraseña:&nbsp;<input type="password" title="Ingresa tu Contraseña" id="password" name="password" placeholder="Escriba una Contraseña" maxlength="50" required><br><br>
+									Confirmar Contraseña:&nbsp;<input type="password" title="Confirma tu Contraseña"id="password2" name="password2" placeholder="Vuela a ingresar la Contraseña" maxlength="50" required><br><br>
+
+
+									<input type="hidden" name="tipo" placeholder="tipo" value="<?php echo $dato5;?>" readonly>
+									<input type="hidden" name="status" placeholder="status" value="<?php echo $dato6;?>" readonly>
+					 				Boleta:&nbsp; <input type="text" name="boleta" placeholder="Boleta" value="<?php echo $egresado1;?>" pattern="[0-9]*$"; maxlength="10" required><br><br>
 					 				Generacion:&nbsp;<input type="text" name="generacion" placeholder="Apellido Paterno" value="<?php echo $egresado2;?>"readonly><br><br>
 
 					  			
 					  				<br><br>
 
-									<input class="btn btn-primary btn-lg" type="submit" value="Enviar"> &nbsp;
+									<input id="boton" class="btn btn-primary btn-lg" type="submit" value="Enviar"> &nbsp;
 									<a class="btn btn-primary btn-lg" href="logout">Cancelar</a>
 								</form>	
 		</center>
@@ -206,6 +213,61 @@ if ($curp == null) {
 				alertify.error("Incorrecto"); 
 				return false; 
 			}
-		</script>			
+		</script>	
+
+
+<script type="text/javascript" /> <!--VALIDACION CONTRASEÑA-->
+	$(function(){
+		$('#password').keyup(function(){
+			var _this = $('#password');
+			var password = $('#password').val();
+			_this.attr('style', 'background:white');
+			if(password.charAt(0) == ' '){
+				_this.attr('style', 'background:#FF4A4A');
+				document.getElementById('boton').style.display='none';
+			}
+	
+			if(_this.val() == ''){
+				_this.attr('style', 'background:#FF4A4A');
+			    document.getElementById('boton').style.display='none';
+			}
+
+		    if(password != password2 && password != ''){
+			    document.getElementById('boton').style.display='none'; 
+			}
+
+
+		});
+	
+		$('#password2').keyup(function(){
+			var password = $('#password').val();
+			var password2 = $('#password2').val();
+			var _this = $('#password2');
+			_this.attr('style', 'background:white');
+
+			if(password2.charAt(0) == ' '){
+				_this.attr('style', 'background:#FF4A4A');
+				document.getElementById('boton').style.display='none';
+			}
+	
+			if(_this.val() == ''){
+				_this.attr('style', 'background:#FF4A4A');
+			    document.getElementById('boton').style.display='none';
+			}			
+
+			if(password != password2 && password2 != ''){
+			    document.getElementById('boton').style.display='none'; 
+				_this.attr('style', 'background:#FF4A4A');
+			}
+			else{
+				_this.attr('style', 'background:#FF4A4A');
+			    document.getElementById('boton').style.display='inline';
+			    _this.attr('style', 'background:#2dcc70');
+			}
+
+
+		});		
+	});
+</script>				
 
 </html>
