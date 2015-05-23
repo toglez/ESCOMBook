@@ -48,13 +48,16 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 							$idPost = $dato1;
 							$idUser = $dato0;
+
+							Session::forget('idUsuarioSession');
+							Session::forget('idPostSession');
 						}
 
 
 					$dato2 = NULL; $dato3 = null; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL;  $dato7 = NULL;  $dato8 = NULL;
 
 					if ($dato0 == null && $dato1 == null ) { 
-					$dato2 = NULL; $dato3 = $idUser; $dato4 = NULL; $dato5 = NULL; $dato6 = NULL;
+					echo "<META HTTP-EQUIV='Refresh' CONTENT='0; url=administrador'>";  
 					?><br><br><br><br><a class="btn" href="administrador">Regresar</a><br><br><br><br> <?php
 					}
 					else{
@@ -103,15 +106,13 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 								<?php $post = Post::find($idPost);?>
 
 							<?php if ($post->rutaMultimedia != null){ ?>
-
-							<div class="module_content">
-
-								<a class="group1" href="{{ $post->rutaMultimedia }}">
-								    <img src="{{ $post->rutaMultimedia }}" height="15%" width="15%">
-								</a>
 							
-							</div>							
-								
+							  <ul class="gallery">
+							    <a href="{{ $post->rutaMultimedia }}"><img src="{{ $post->rutaMultimedia }}" alt="Image" height="15%" width="15%"></a>
+							  </ul>
+
+
+													
 							<?php } else{ ?>
 								<h4 class="alert_warning">No contiene archivo Multimedia.</h4>
 							<?php } ?>

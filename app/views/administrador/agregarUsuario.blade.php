@@ -16,7 +16,16 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 </script>
 
-		</h4>		
+		</h4>	
+
+		<?php if (Session::has('agregarUsuario_Correcto')) {?>
+			<h4 class="alert_success">Usuario Agregado Correctamente!</h4>
+		 <?php }?>
+
+		<?php if (Session::has('agregarUsuario_Error')) {?>
+			<h4 class="alert_error">Error al agregar al Usuario <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			Ya Existe cualquiera de estos datos: CURP, Correo y/o Boleta registrados anteriormente!</h4>
+		 <?php }?>				
 
 		<!-- INICIO DEL MAIN -->
 		<article class="module width_full">
@@ -34,8 +43,8 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 
 					 				<h4>
 									Nombre(s):&nbsp;<input type="text" name="nombre" placeholder="Nombre"  pattern="[A-Za-z]{1}[A-Za-z-éíó\s]*$"; maxlength="50" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required><br><br>
-					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno"  pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno"  pattern="[A-Za-z]{1}[A-Za-z-éíó\s]*$"; maxlength="40" required><br><br>
+					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno"   pattern="[A-Za-z]{1}[A-Za-z-éíó\s]*$"; maxlength="40" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									
 
 							  		CURP:&nbsp;<input type="text" title="CURP" name="username" placeholder="CURP" size="30"  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" 
@@ -44,10 +53,10 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 					 				<b>Tipo</b><br><br>
 					 				 Administrador:&nbsp;<input type="radio" name="check"  id="check1" value=1 onchange="javascript:showContent()"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									 Encargado:&nbsp;<input type="radio" name="check"  id="check2" value=2 onchange="javascript:showContent()"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									 Egresado:&nbsp; <input type="radio" name="check"  id="check3" value=3 onchange="javascript:showContent()" /><br><br>
+									 Egresado:&nbsp; <input type="radio" name="check"  id="check3" value=3 onchange="javascript:showContent()" /><br><br><br>
 
 								<div id="content" style="display: none;">
-					 				Boleta:&nbsp; <input type="text" id="boleta" name="boleta" placeholder="Boleta"  value="0000000000" pattern="[0-9]*$" maxlength="10" required> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 				Boleta:&nbsp; <input type="text" id="boleta" name="boleta" placeholder="Boleta"  value="0000000000" pattern="[0-9]{10}" maxlength="10" required> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					 				
 					 				Generación:&nbsp;
 
@@ -71,8 +80,35 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 								        <option value="Generación 17">Generación 17 </option>
 								        <option value="Generación 18">Generación 18 </option>	
 								        <option value="Generación 19">Generación 19 </option>								        								        
-								      </select>					 				
-								</div><br><br>
+								      </select>	<br><br>			 				
+								</div>
+
+								<div id="content2" style="display: none;">
+									Contraseña:&nbsp;<input type="password" title="Ingresa tu Contraseña" id="password" name="password" placeholder="Escriba una Contraseña" maxlength="50" required><br><br>
+									Confirmar Contraseña:&nbsp;<input type="password" title="Confirma tu Contraseña"id="password2" name="password2" placeholder="Vuela a ingresar la Contraseña" maxlength="50" required><br><br>
+
+					 				Status:&nbsp;
+
+								      <select class="form-control" id="status" name="status" required>
+								        <option value="0">Inactivo</option>
+								        <option value="1">Activo</option>
+							        								        
+								      </select>	<br><br>
+									Correo:&nbsp;<input type="email" id="correo" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>							   			 					
+
+									Teléfono de Contacto:&nbsp;
+
+									<select class="form-control" name="tipoTelefono" required>
+								        <option value=1>Personal</option>
+								        <option value=2>Trabajo</option>
+								      </select>	<br><br>
+
+									Numero: &nbsp;<input type="text" id="telefono" name="telefono" pattern="[0-9]*$"; placeholder="Ejemplo: 57789645 o 5538959678" maxlength="15" required>&nbsp;&nbsp;
+									Extensión:&nbsp;<input type="text" name="extTelefono" pattern="[0-9]*$"; placeholder="Si no cuenta con extensión dejar en blanco">
+									<br><br><br>
+
+
+								</div>							
 
 
 
@@ -90,25 +126,93 @@ document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
 <script type="text/javascript">
     function showContent() {
         element = document.getElementById("content");
+        element2 = document.getElementById("content2");
         check3 = document.getElementById("check3");
         check2 = document.getElementById("check2");
         check1 = document.getElementById("check1");
         
         if (check3.checked) {
             element.style.display='inline';
+            element2.style.display='none';
             document.getElementById('boleta').value='';
             document.getElementById('generacion').value='';
+            document.getElementById('password').value='DeScOnocida';
+            document.getElementById('password2').value='DeScOnocida';
+            document.getElementById('status').value='0';
+            document.getElementById('correo').value='correo@correo.com';
+            document.getElementById('telefono').value='00000000';
 
         }
         
         if (check2.checked || check1.checked){
         	element.style.display='none';
+        	element2.style.display='inline';
         	document.getElementById('boleta').value="0000000000";
         	document.getElementById('generacion').value='Generación 1';
+        	document.getElementById('password').value='';
+            document.getElementById('password2').value='';
+            document.getElementById('status').value='0';
+            document.getElementById('correo').value='';
+                document.getElementById('telefono').value='';
+
         }
 
     }
 </script>	
+
+<script type="text/javascript" /> <!--VALIDACION CONTRASEÑA-->
+	$(function(){
+		$('#password').keyup(function(){
+			var _this = $('#password');
+			var password = $('#password').val();
+			_this.attr('style', 'background:white');
+			if(password.charAt(0) == ' '){
+				_this.attr('style', 'background:#FF4A4A');
+				document.getElementById('boton').style.display='none';
+			}
+	
+			if(_this.val() == ''){
+				_this.attr('style', 'background:#FF4A4A');
+			    document.getElementById('boton').style.display='none';
+			}
+
+		    if(password != password2 && password != ''){
+			    document.getElementById('boton').style.display='none'; 
+			}
+
+
+		});
+	
+		$('#password2').keyup(function(){
+			var password = $('#password').val();
+			var password2 = $('#password2').val();
+			var _this = $('#password2');
+			_this.attr('style', 'background:white');
+
+			if(password2.charAt(0) == ' '){
+				_this.attr('style', 'background:#FF4A4A');
+				document.getElementById('boton').style.display='none';
+			}
+	
+			if(_this.val() == ''){
+				_this.attr('style', 'background:#FF4A4A');
+			    document.getElementById('boton').style.display='none';
+			}			
+
+			if(password != password2 && password2 != ''){
+			    document.getElementById('boton').style.display='none'; 
+				_this.attr('style', 'background:#FF4A4A');
+			}
+			else{
+				_this.attr('style', 'background:#FF4A4A');
+			    document.getElementById('boton').style.display='inline';
+			    _this.attr('style', 'background:#2dcc70');
+			}
+
+
+		});		
+	});
+</script>				
 
 
 

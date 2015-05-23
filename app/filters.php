@@ -35,16 +35,6 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	/*if( Auth::check() ){
-		if(Auth::user()->tipo == '1' and Auth::user()->status == '1')
-			return View::make('administrador.index');
-		elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1')
-			return Redirect::to('encargado');
-		else
-			return Redirect::to('egresado');
-		// El usuario está autenticado
-	}else
-		return Redirect::to('/');*/
 	if (Auth::guest()) return Redirect::guest('/');
 });
 
@@ -88,6 +78,7 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
 
 Route::filter('is_egresado', function($route, $request)
 {

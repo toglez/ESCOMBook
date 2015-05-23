@@ -142,12 +142,24 @@ if ($curp == null) {
 					 				 <?php } ?><br>
 					 				<h4>
 									<input type="hidden" name="id" placeholder="IdUsuario" value="<?php echo $dato0;?>" readonly>
-					 			    Nombre(s):&nbsp;<input type="text" name="nombre" placeholder="Nombre" value="<?php echo $dato1;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="50" required><br><br>
-					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" value="<?php echo $dato2;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40"required><br><br>
-					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno" value="<?php echo $dato3;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40"required><br><br>
+					 			    Nombre(s):&nbsp;<input type="text" name="nombre" placeholder="Nombre" value="<?php echo $dato1;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="50" required readonly><br><br>
+					 				Apellido Paterno:&nbsp; <input type="text" name="apPaterno" placeholder="Apellido Paterno" value="<?php echo $dato2;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required readonly><br><br>
+					 				Apellido Materno:&nbsp;<input type="text" name="apMaterno" placeholder="Apellido Materno" value="<?php echo $dato3;?>" pattern="[A-Za-z]{1}[A-Za-z\s]*$"; maxlength="40" required readonly><br><br>
 									
-									Correo:&nbsp;<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br>
+									Correo:&nbsp;<input type="email" title="Ingresa tu E-mail" name="correo" placeholder="E-mail" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br><br><br>
 
+									Telefono de Contacto:&nbsp;
+
+									<select class="form-control" name="tipoTelefono" required>
+								        <option value=1>Personal</option>
+								        <option value=2>Trabajo</option>
+								      </select>	<br><br>
+
+									Numero: &nbsp;<input type="text" name="telefono" pattern="[0-9]*$"; maxlength="15" required>&nbsp;&nbsp;
+									Extensión:&nbsp;<input type="text" name="extTelefono" pattern="[0-9]*$"; placeholder="Si no cuenta con extensión dejar en blanco">
+									<br><br><br>
+
+									
 									CURP:&nbsp;<input type="text" name="username" placeholder="CURP" value="<?php echo $dato4;?>" readonly><br><br>
 
 									Contraseña:&nbsp;<input type="password" title="Ingresa tu Contraseña" id="password" name="password" placeholder="Escriba una Contraseña" maxlength="50" required><br><br>
@@ -156,8 +168,8 @@ if ($curp == null) {
 
 									<input type="hidden" name="tipo" placeholder="tipo" value="<?php echo $dato5;?>" readonly>
 									<input type="hidden" name="status" placeholder="status" value="<?php echo $dato6;?>" readonly>
-					 				Boleta:&nbsp; <input type="text" name="boleta" placeholder="Boleta" value="<?php echo $egresado1;?>" pattern="[0-9]*$"; maxlength="10" required><br><br>
-					 				Generacion:&nbsp;<input type="text" name="generacion" placeholder="Apellido Paterno" value="<?php echo $egresado2;?>"readonly><br><br>
+					 				Boleta:&nbsp; <input type="text" name="boleta" placeholder="Boleta" value="<?php echo $egresado1;?>" pattern="[0-9]*$"; maxlength="10" required readonly><br><br>
+					 				Generación:&nbsp;<input type="text" name="generacion" placeholder="Apellido Paterno" value="<?php echo $egresado2;?>"readonly><br><br>
 
 					  			
 					  				<br><br>

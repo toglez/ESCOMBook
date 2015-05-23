@@ -28,6 +28,11 @@ class UserLogin extends BaseController {
 				return Redirect::to('/')->with('no_activo',true);
 			}
 
+			if(Auth::user()->status == '3'){
+				Auth::logout();
+				return Redirect::to('/')->with('suspendido',true);
+			}			
+
 		}
 		else
 		{
@@ -87,7 +92,7 @@ class UserLogin extends BaseController {
 			$para = 'pruebasescombook@hotmail.com'; // Probando el correo 
 			$titulo = 'Solicitud de datos ESCOMBook';
 			$header = 'From: ' . $correo; // De quien lo envia (Nosotros)
-		$msjCorreo = "Buen día ".$nombreusuario."\n\n Tus datos de acesso son:\n\n* CURP: ".$curp."\n* Nueva Contraseña: ".$cadena ."\n\nIngrese a http://compartamoscine.esy.es/ para identificarse\n\n\nSaludos!";
+			$msjCorreo = "Buen día ".$nombreusuario."\n\n Tus datos de acesso son:\n\n* CURP: ".$curp."\n* Nueva Contraseña: ".$cadena. "\n* Correo Registrado: ".$correo ."\n\nIngrese a http://compartamoscine.esy.es/ para identificarse\n\n\nSaludos!";
 			  
 				if (mail($para, $titulo, $msjCorreo, $header)) {
 					echo "<script language='javascript'>
@@ -120,18 +125,19 @@ class UserLogin extends BaseController {
 		$nombreusuario = "Sin Nombre";
 		$ValorCurp = "NULL";	
 
-	    $resultados = DB::select('SELECT id,nombre,username,status FROM users  WHERE username = ? ', array($curp));
+	    $resultados = DB::select('SELECT id,nombre,username,status,tipo FROM users  WHERE username = ? ', array($curp));
 
 		foreach ($resultados as $resultado)
 		{
     		$idusuario = $resultado->id;
     		$nombreusuario = $resultado->nombre;
     		$status = $resultado->status;
+    		$tipo = $resultado->tipo;
 		}
 
 		if ($idusuario != 0) {
 
-			if ($status == '1') {
+			if ($status == '1' || $tipo != "3" || $status == '3') {
 				return Redirect::to('/')->with('ya_actualizo',true);
 			}
 			else{
@@ -158,11 +164,12 @@ class UserLogin extends BaseController {
 		$tipo = Input::get('tipo');
 		$status = Input::get('status');		
 
-		$boleta = Input::get('boleta');
-		$generacion = Input::get('generacion');	
+		$tipoTelefono = Input::get('tipoTelefono');
+		$numero = Input::get('telefono');
+		$extension = Input::get('extTelefono');
 
 
-			// Guardar en la BD los nuevos datos
+			// Guardar en la BD los nuevos datos (Usuario)
 
 			$user = User::find( $idusuario);
 			$user -> nombre = $nombre;
@@ -173,18 +180,12 @@ class UserLogin extends BaseController {
 
 			$user->save();	 // Guardo	Datos Usuario
 
-        $resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', array($idusuario));
+        $resultados = DB::select('SELECT id FROM datos_egresados WHERE idUsuario = ?', array($idusuario)); // Saco el IdUsuario
 
 		foreach ($resultados as $resultado)
 		{
     		$idEgresado = $resultado->id;
 		}					
-
-
-			$egresado = DatosEgresado::find($idEgresado);
-			$egresado -> boleta = $boleta;
-
-			$egresado->save();	 // Guardo Boleta
 
 
 			$mail = new Correo;
@@ -194,7 +195,36 @@ class UserLogin extends BaseController {
 
 			$mail -> save(); // Guardo Correo
 
+
+			$UserTel = new Telefono;
+			$UserTel -> idUsuario = $idusuario;
+			$UserTel -> telefono = $numero;
+
+			if ($extension != null) {
+				$UserTel -> extension = $extension;
+			}
+
+			$UserTel -> tipoTelefono = $tipoTelefono;
+			$UserTel -> save(); // Guardo los Datos
+
+
+			// ENVIAR EL CORREO DE REGISTRO
+
+			$para = 'pruebasescombook@hotmail.com'; // Probando el correo 
+			$titulo = 'Registro en ESCOMBook';
+			$header = 'From: ' . $correo; // De quien lo envia (Nosotros)
+		    $msjCorreo = "Buen día ".$nombre."\n\n Tus datos de acesso a ESCOMBook son:\n\n* CURP: ".$curp."\n* Contraseña: ".$password ."\n* Correo Registrado: ".$correo ."\n\nIngrese a http://compartamoscine.esy.es/ para identificarse\n\n\nSaludos!";
+			  
+				if (mail($para, $titulo, $msjCorreo, $header)) {
+					echo "<script language='javascript'>
+					alert('Mensaje enviado, muchas gracias.');
+					</script>";
+				} 
+				else {
+					echo 'Falló el envio';
+				}				
+
 			return Redirect::to('/')->with('preregistro_correcto',true);
 
 	}
-}
+}			

@@ -38,9 +38,8 @@ label{
 /*Another*/
 
 .fileUpload {
-    position: relative;
+    position: absolute;
     overflow: hidden;
-    margin: 10px;
 }
 .fileUpload input.upload {
     position: absolute;

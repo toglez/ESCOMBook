@@ -47,4 +47,33 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('comentario');
     }
 
+    public function correo_usuario() {
+        return $this->hasMany('correo_usuario');
+    }
+
+    public function telefono_usuario() {
+        return $this->hasMany('telefono_usuario');
+    }
+
+    public static function setPassword($input){
+    	$respuesta = array();
+    	$reglas =  array(
+    		'newPassword'      => 'required',
+        	'confirmPassword'  => 'same:newPassword',
+        );
+        $validator = Validator::make($input, $reglas);
+
+        if($validator->fails()){
+        	$respuesta['mensaje'] = $validator;
+            $respuesta['error']   = true;
+        }else{
+        	$user = User::find(Auth::user()->id);
+        	$user->password = Hash::make($input['newPassword']);
+        	$user->save();
+        	$respuesta['mensaje'] = 'Se ha cambiado la contraseña';
+        	$respuesta['error']   = false;
+        }
+        return $respuesta;
+    }
+
 }

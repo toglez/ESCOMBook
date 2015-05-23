@@ -92,6 +92,38 @@ Route::get('editarPost', array('before' => 'auth', function()
 
 }));
 
+Route::get('editPost2', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+
+return Redirect::to('editarPost2')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+
+}));
+
+
+
+Route::get('editarPost2', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idPost');
+
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionContenido.editarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionContenido.editarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			else{
+				return View::make('egresado.gestionContenido.editarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+}
+
+}));
+
 /////////////////////////
 
 
@@ -103,8 +135,6 @@ $valor2= $_GET["id2"];
 return Redirect::to('eliminarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
 
 }));
-
-
 
 Route::get('eliminarPost', array('before' => 'auth', function() 
 {
@@ -127,7 +157,40 @@ Route::get('eliminarPost', array('before' => 'auth', function()
 
 }));
 
-/////////////////////////
+
+Route::get('eliminaPost2', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+
+return Redirect::to('eliminarPost2')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+
+}));
+
+
+
+Route::get('eliminarPost2', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idPost');
+
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionContenido.eliminarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionContenido.eliminarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			else{
+				return View::make('egresado.gestionContenido.eliminarPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+}
+
+}));
+
+///////////////////////VER POST///////////////////////////////////////////////////////////
 
 Route::get('vePost', array('before' => 'auth', function() 
 {
@@ -163,8 +226,50 @@ Route::get('verPost', array('before' => 'auth', function()
 
 }));
 
+////////////////////////
+
+Route::get('vePost2', array('before' => 'auth', function() 
+{
+
+	
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+
+return Redirect::to('verPost2')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+
+}));
+
+
+Route::get('verPost2', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idPost');
+
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionContenido.verPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionContenido.verPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+			else{
+				return View::make('egresado.verPost')->with(array('idUser'=> $valor,'idPost'=>$valor2));
+			}
+}
+
+}));
+
 Route::post('GuardarEditarPost','AdministradorController@editarpost'); // Editar Post Administrador (Propios)
+Route::post('GuardarEditarPost2','AdministradorController@editarpost2'); // Editar Post Administrador (Propios)
+
+
 Route::post('EliminarPostAdministrador','AdministradorController@eliminarpost'); // Eliminar Post (Cualquiera)
+Route::post('EliminarPostAdministrador2','AdministradorController@eliminarpost2'); // Eliminar Post (Cualquiera)
+
+
+
 
 ////////CRUD COMENTARIOS ADMINISTRADOR///////////
 
@@ -201,6 +306,39 @@ Route::get('verComentario', array('before' => 'auth', function()
 
 }));
 
+Route::get('veComentario2', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+$valor3= $_GET["id3"];
+
+return Redirect::to('verComentario2')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+
+}));
+
+
+Route::get('verComentario2', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idComentario');
+	$valor3 = Session::get('idPOST');
+
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionContenido.verComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionContenido.verComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+			else{
+				return View::make('egresado.gestionContenido.verComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+}
+
+}));
+
 /////////////////////////
 
 Route::get('editComentario', array('before' => 'auth', function() 
@@ -212,7 +350,6 @@ $valor3= $_GET["id3"];
 return Redirect::to('editarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
 
 }));
-
 
 
 Route::get('editarComentario', array('before' => 'auth', function() 
@@ -237,6 +374,39 @@ Route::get('editarComentario', array('before' => 'auth', function()
 
 }));
 
+Route::get('editComentario2', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+$valor3= $_GET["id3"];
+
+return Redirect::to('editarComentario2')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+
+}));
+
+
+
+Route::get('editarComentario2', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idComentario');
+	$valor3 = Session::get('idPOST');
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionContenido.editarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionContenido.editarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+			else{
+				return View::make('egresado.gestionContenido.editarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+}
+
+}));
+
 /////////////////////////
 
 Route::get('eliminaComentario', array('before' => 'auth', function() 
@@ -250,13 +420,11 @@ return Redirect::to('eliminarComentario')->with(array('idUser'=> $valor,'idComen
 }));
 
 
-
 Route::get('eliminarComentario', array('before' => 'auth', function() 
 {
 	$valor = Session::get('idUser');
 	$valor2 = Session::get('idComentario');
 	$valor3 = Session::get('idPOST');
-
 
 	if (Auth::check())
 {
@@ -273,12 +441,219 @@ Route::get('eliminarComentario', array('before' => 'auth', function()
 
 }));
 
+Route::get('eliminaComentario2', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+$valor2= $_GET["id2"];
+$valor3= $_GET["id3"];
+
+return Redirect::to('eliminarComentario2')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+
+}));
+
+Route::get('eliminarComentario2', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+	$valor2 = Session::get('idComentario');
+	$valor3 = Session::get('idPOST');
+
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionContenido.eliminarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionContenido.eliminarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+			else{
+				return View::make('egresado.gestionContenido.eliminarComentario')->with(array('idUser'=> $valor,'idComentario'=>$valor2,'idPOST'=>$valor3));
+			}
+}
+
+}));
+
 /////////////////////////
 
 Route::post('GuardarEditarComentario','AdministradorController@editarcomentario'); // Editar Comentario Administrador (Propios)
-Route::post('EliminarComentarioAdministrador','AdministradorController@eliminarcomentario'); // Eliminar PComentario (Cualquiera)
+Route::post('GuardarEditarComentario2','AdministradorController@editarcomentario2'); // Editar Comentario Administrador (Propios)
 
-/////////////////////////////////////////////////////////
+Route::post('EliminarComentarioAdministrador','AdministradorController@eliminarcomentario'); // Eliminar PComentario (Cualquiera)
+Route::post('EliminarComentarioAdministrador2','AdministradorController@eliminarcomentario2'); // Eliminar PComentario (Cualquiera)
+
+// TERMINA GESTIÓN DE CONTENIDO ////////////////////////////////////////////////////
+
+
+///////// GESTION DE USUARIOS //////////////////////////////////////////////////////
+
+Route::get('cambiaUsuario', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+
+return Redirect::to('cambiarUsuario')->with(array('idUsuario'=>$valor));
+
+}));
+
+
+
+Route::get('cambiarUsuario', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUsuario');
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionUsuarios.cambiarUsuario')->with(array('idUsuario'=>$valor));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionUsuarios.cambiarUsuario')->with(array('idUsuario'=>$valor));
+			}
+			else{
+				return View::make('egresado.gestionUsuarios.cambiarUsuario')->with(array('idUsuario'=>$valor));
+			}
+}
+
+}));
+
+///////////////////////VER USUARIO///////////////////////////////////////////////////////////
+
+Route::get('veUsuario', array('before' => 'auth', function() 
+{
+
+	
+$valor= $_GET["id"];
+
+return Redirect::to('verUsuario')->with(array('idUser'=> $valor));
+
+}));
+
+
+
+Route::get('verUsuario', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionUsuarios.verUsuario')->with(array('idUser'=> $valor));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionUsuarios.verUsuario')->with(array('idUser'=> $valor));
+			}
+			else{
+				return View::make('egresado.gestionUsuarios.verUsuario')->with(array('idUser'=> $valor));
+			}
+}
+
+}));
+
+/////////////////////////
+
+Route::get('editUsuario', array('before' => 'auth', function() 
+{
+$valor= $_GET["id"];
+
+return Redirect::to('editarUsuario')->with(array('idUser'=> $valor));
+
+}));
+
+
+
+Route::get('editarUsuario', array('before' => 'auth', function() 
+{
+	$valor = Session::get('idUser');
+
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+    			return View::make('administrador.gestionUsuarios.editarUsuario')->with(array('idUser'=> $valor));
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return View::make('encargado.gestionUsuarios.editarUsuario')->with(array('idUser'=> $valor));
+			}
+			else{
+				return View::make('egresado.gestionUsuarios.editarUsuario')->with(array('idUser'=> $valor));
+			}
+}
+
+}));
+
+
+Route::post('GuardarEditarUsuarioAdmEnc','UserController@editarusuario'); // Editar Usuario 
+Route::post('GuardarEditarUsuarioEgresado','UserController@editarusuario'); // Editar Usuario
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('buscador', array('before' => 'auth', function()  // BUSCADOR DE POST
+{
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1'){
+				return View::make('administrador.buscador');
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return Redirect::to('encargado.buscador');
+			}
+			else{
+				return Redirect::to('egresado'); // Egresado No Busca
+			}
+}
+}));
+
+
+Route::get('buscadorU', array('before' => 'auth', function()  // Buscador de Usuarios
+{
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1'){
+				return View::make('administrador.buscadorUsuarios');
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return Redirect::to('encargado.buscadorUsuarios');
+			}
+			else{
+				return Redirect::to('egresado'); // Egresado No Busca
+			}
+}
+}));
+
+
+Route::post('buscarUsuario','UserController@buscarusuario'); // Guardar Pre-Registro
+
+Route::get('buscarUsuario', array('before' => 'auth', function()  // Tipo 1
+{
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1'){
+				return View::make('administrador.busquedaUsuario');
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return Redirect::to('encargado.busquedaUsuario');
+			}
+			else{
+				return Redirect::to('egresado'); // Egresado No Busca
+			}
+}
+}));
+
+Route::post('buscarPost','PostController@buscarpost'); // Guardar Pre-Registro
+
+Route::get('buscarPost', array('before' => 'auth', function()  // Tipo 1
+{
+	if (Auth::check())
+{
+    		if(Auth::user()->tipo == '1' and Auth::user()->status == '1'){
+				return View::make('administrador.busqueda');
+			}
+			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+				return Redirect::to('encargado.busqueda');
+			}
+			else{
+				return Redirect::to('egresado'); // Egresado No Busca
+			}
+}
+}));
 
 
 
@@ -329,15 +704,20 @@ Route::get('egresado', array('before' => 'auth', function() // Tipo 3
 {
 	if (Auth::check())
 {
+			if (Auth::user()->status != '1') {
+				return Redirect::to('logout');
+			}
+
     		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
 				return Redirect::to('administrador');
 			}
 			elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
 				return Redirect::to('encargado');
 			}
-			else{
+			else {
 				return View::make('egresado.index');
-			}// El usuario está autenticado
+			}
+
 }
 
 }));
@@ -345,40 +725,47 @@ Route::get('egresado', array('before' => 'auth', function() // Tipo 3
 
 Route::get('agregarUsuario', array('before' => 'auth', function() // Agregar Usuario Administrador
 {
-	return View::make('administrador.agregarUsuario');
-}));
+	if (Auth::check())
+	{
+		if(Auth::user()->tipo == '1' and Auth::user()->status == '1' ){
+			return View::make('administrador.agregarUsuario');
+		}
+		elseif (Auth::user()->tipo == '2' and Auth::user()->status == '1') {
+			return View::make('encargado.agregarUsuario');
+		}
+		else{
+			return Redirect::to('egresado');
+		}// El usuario está autenticado
+	}
 
-Route::post('agregarNuevoUsuario','AdministradorController@agregarusuario'); // Agregar Usuario (Administrador)
+	}));
 
-/* Rutas del muro: PostController */
+Route::post('agregarNuevoUsuario','UserController@agregarusuario'); // Agregar Usuario (Administrador)
+Route::post('CambiarStatusUsuario','UserController@cambiarstatus'); // Cambiar Status Usuario
+
+
+/* Rutas del muro: PostController  (QUE NO SIRVEN)*/
 // Toño
-Route::group(array('before' => 'is_egresado'), function(){
-	Route::get('egresado', 'PostController@wall');
-	Route::get('egresado.muro', 'PostController@myMuro');
-});
 
-Route::group(array('before' => 'is_encargado'), function(){
-	Route::get('encargado.muro', 'PostController@wall');
-	Route::get('encargado.miMuro', 'PostController@myMuro');
-});
+Route::get('egresado', array('before' => 'auth', 'uses' => 'PostController@wall')); // Toño
+Route::get('egresado.miMuro', array('before' => 'auth', 'uses' => 'PostController@myMuro')); // Armando
 
-Route::group(array('before' => 'is_admin'), function(){
-	Route::get('administrador.muro', 'PostController@wall');
-	Route::get('gestionPosts', 'PostController@mostrarTodos');
-	Route::get('gestionPosts.show/{id}', 'PostController@show');
-	Route::get('gestionPosts.edit/{id}', 'PostController@edit');
-	Route::post('gestionPosts.edit/{id}', 'PostController@actualizar');
-	Route::get('gestionPosts.delete/{id}', 'PostController@erase');
-});
-
-Route::post('eliminar','PostController@delete'); //Eliminar
-Route::post('actualizar','PostController@update'); //Actualizar
+Route::get('encargado.muro', array('before' => 'auth', 'uses' => 'PostController@wall'));
+Route::get('encargado.miMuro', array('before' => 'auth', 'uses' => 'PostController@myMuro'));
 
 
-//Vista  gestionPosts de amdin
-Route::get('borrar/{id}', [
-    'as' => 'borrar', 'uses' => 'PostController@erase'
-]);
+Route::get('administrador.muro', array('before' => 'auth', 'uses' => 'PostController@wall'));
+Route::get('administrador.miMuro', array('before' => 'auth', 'uses' => 'PostController@myMuro'));
+
+
+////////// GESTION DE POST /////////////////////
+
+Route::get('gestionPosts', array('before' => 'auth', 'uses' => 'PostController@mostrarTodos'));
+Route::get('gestionUsuarios', array('before' => 'auth', 'uses' => 'UserController@mostrarTodos'));
+
+
+///////////////////////////////////////////////
+
 /*POSTS*/
 Route::post('muro', [
     'as' => 'crearP', 'uses' => 'PostController@store'
@@ -391,13 +778,41 @@ Route::post('comentario', [
 Route::post('borrarC', [
     'as' => 'deleteC', 'uses' => 'ComentarioController@delete'
 ]);
-
-Route::post('borrarC', [
-    'as' => 'deleteC', 'uses' => 'ComentarioController@delete'
-]);
 /* Vista muro egresado */
 Route::get('borrarComentario/{id}', [
     'as' => 'borrarComentario', 'uses' => 'ComentarioController@borrar'
 ]);
 
-Route::resource('administrador/reportes', 'PDFController');
+			/*Rutas del perfil de usuario*/
+
+Route::get('perfil', [
+    'as' => 'perfil', 'before' => 'auth', 'uses' => 'UserController@perfil'
+]);
+//Route::post('egresado.perfil', array('before' => 'auth|csrf', 'uses' => 'UserController@saveBasics'));
+Route::post('perfil', [
+    'as' => 'perfil', 'before' => 'auth|csrf', 'uses' => 'UserController@saveBasics'
+]);
+Route::get('trabajo', [
+    'as' => 'perfil', 'before' => 'auth', 'uses' => 'UserController@work'
+]);
+Route::post('trabajo', [
+    'as' => 'trabajo', 'before' => 'auth|csrf', 'uses' => 'UserController@saveWork'
+]);
+//Route::post('egresado.trabajo', array('before' => 'auth|csrf', 'uses' => 'UserController@saveWork'));
+Route::get('privacidad', [
+    'as' => 'perfil', 'before' => 'auth', 'uses' => 'UserController@privacy'
+]);
+Route::post('privacidad', [
+    'as' => 'privacidad', 'before' => 'auth|csrf', 'uses' => 'UserController@savePrivacy'
+]);
+
+Route::get('borrarTelefono/{id}', [
+    'as' => 'borrarTelefono', 'uses' => 'UserController@borrar'
+]);
+
+/* TODO lo de Adrian (Ha ha ha) */ 
+
+Route::get('administrador/reportes', 'PDFController@index');
+Route::post('administrador/reportes/pdf_generacion', 'PDFController@generarGeneracion');
+Route::post('administrador/reportes/pdf_anioEgreso', 'PDFController@generarAnioEgreso');
+Route::post('administrador/reportes/pdf_lugarTrabajo', 'PDFController@generarLugarTrabajo');
